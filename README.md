@@ -2,6 +2,7 @@
 This is an web app with Twleve Labs API for solving ELTA Sports prize in [GenAI Stars Hackthon](https://genaistars.org.tw/).
 
 ## Development
+
 ### 1. Install the dependencies
 
 ```bash
@@ -20,6 +21,7 @@ cp .env.development .env.local
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Deploy on Vercel
