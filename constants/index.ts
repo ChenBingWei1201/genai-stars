@@ -19,3 +19,5 @@ export const ENGINES = [
     options: ["visual", "conversation"],
   },
 ];
+
+export const PAGE_LIMIT = 1;
