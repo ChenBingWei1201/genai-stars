@@ -19,7 +19,7 @@ export function Footer() {
             className="w-9 m-2"
           />
         </a>
-        <a href="https://www.facebook.com/ChenBingWei.CBW/" target="_blank">
+        <a href="https://x.com/home" target="_blank">
           <img src="/images/x.png" alt="x link" className="w-9 m-2" />
         </a>
       </div>

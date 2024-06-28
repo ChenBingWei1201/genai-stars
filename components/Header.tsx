@@ -18,7 +18,7 @@ export function Header() {
           href="/"
           className="flex gap-2 items-center text-xl text-black font-bold ml-2"
         >
-          <Image src="/logo.png" width="50" height="50" alt="file drive logo" />
+          <Image src="/images/logo.png" width="50" height="50" alt="file drive logo" />
           <span className="bg-gradient-to-r from-[#fecf4f] via-[#ff6528] to-[#ff0016] text-transparent bg-clip-text">
             GenAI Sports+
           </span>

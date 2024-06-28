@@ -26,7 +26,7 @@ export default function Home() {
         <div className="mx-auto max-w-2xl py-8">
           <div className="text-center flex flex-col flex-center">
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               width={250}
               height={250}
               alt="logo"
