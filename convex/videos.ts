@@ -1,6 +1,20 @@
 import { ConvexError, v } from "convex/values";
 
-import { internalMutation, query } from "./_generated/server";
+import { internalMutation, query, action } from "./_generated/server";
+import { api, internal } from "./_generated/api";
+
+export const checkExistVideo = query({
+  args: { videoId: v.string() },
+  handler: async (ctx, args) => {
+    const video = await ctx.db
+      .query("videos")
+      .filter((q) => q.eq(q.field("twelvelabsId"), args.videoId))
+      .unique();
+    
+    return video ? true : false;
+  },
+});
+
 
 export const getVideoById = query({
   args: { videoId: v.string() },
@@ -23,7 +37,7 @@ export const createVideo = internalMutation({
     twelvelabsId: v.string(),
     section: v.string(),
     title: v.string(),
-    topics: v.string(),
+    topics: v.array(v.string()),
     hashtags: v.array(v.string()),
     summary: v.string(),
     chapters: v.array(v.object({
@@ -60,7 +74,7 @@ export const updateVideo = internalMutation({
     twelvelabsId: v.string(),
     section: v.string(),
     title: v.string(),
-    topics: v.string(),
+    topics: v.array(v.string()),
     hashtags: v.array(v.string()),
     summary: v.string(),
     chapters: v.array(v.object({
@@ -113,5 +127,53 @@ export const deleteVideo = internalMutation({
     }
 
     await ctx.db.delete(video._id);
+  },
+});
+
+export const doSomeMagic = action({
+  args: { videoId: v.string() },
+  handler: async (ctx, {videoId}) => {
+    // const section = await ctx.runAction(api.twelve_labs.classifyVideo, {
+    //   videoId: videoId,
+    // });
+    const gist = await ctx.runAction(api.twelve_labs.generateGist, {
+      videoId: videoId,
+    });
+    const summary = await ctx.runAction(api.twelve_labs.generateSummary, {
+      videoId: videoId,
+    });
+    const chapters = await ctx.runAction(api.twelve_labs.generateChapter, {
+      videoId: videoId,
+    });
+    const highlights = await ctx.runAction(api.twelve_labs.generateHighlight, {
+      videoId: videoId,
+    });
+    const existVideo = await ctx.runQuery(api.videos.checkExistVideo, {
+      videoId: videoId,
+    })
+    if (existVideo) {
+      await ctx.runMutation(internal.videos.updateVideo, {
+        twelvelabsId: videoId, 
+        section: "Can't find a better way to do this...",
+        title: JSON.parse(gist).title,
+        topics: JSON.parse(gist).topics, 
+        hashtags: JSON.parse(gist).hashtags,
+        summary: JSON.parse(summary).summary, 
+        chapters: JSON.parse(chapters).chapters, 
+        highlights: JSON.parse(highlights).highlights,
+      });
+    }
+    else {
+      await ctx.runMutation(internal.videos.createVideo, {
+        twelvelabsId: videoId, 
+        section: "Can't find a better way to do this...",
+        title: JSON.parse(gist).title,
+        topics: JSON.parse(gist).topics, 
+        hashtags: JSON.parse(gist).hashtags,
+        summary: JSON.parse(summary).summary, 
+        chapters: JSON.parse(chapters).chapters, 
+        highlights: JSON.parse(highlights).highlights,
+      });
+    }
   },
 });

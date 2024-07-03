@@ -74,7 +74,7 @@ export const getVideoFromTask = action({
 export const classifyVideo = action({
   args: { videoId: v.string(), },
   handler: async (_ctx, { videoId }) => {
-    try {
+    try { // Todo: Somehow make this function work
       const response = await axios.request({
         method: "POST",
         url: `${BASE_URL}/classify`,
@@ -82,10 +82,9 @@ export const classifyVideo = action({
         data: {
           video_ids: [ videoId ],
           options: [ "conversation", "text_in_video", "visual" ],
-          // Todo: Change classes
           classes: [
-            { name: "clash royale", prompt: "clash royale" }, 
-            { name: "blue archive", prompt: "blue archive" },
+            { name: "clash royale", prompts: ["clash royale"] }, 
+            { name: "blue archive", prompts: ["blue archive"] },
           ]
         }
       });

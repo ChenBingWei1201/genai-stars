@@ -12,7 +12,7 @@ export default defineSchema({
     twelvelabsId: v.string(),
     section: v.string(),
     title: v.string(),
-    topics: v.string(),
+    topics: v.array(v.string()),
     hashtags: v.array(v.string()),
     summary: v.string(),
     chapters: v.array(v.object({

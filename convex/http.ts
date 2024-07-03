@@ -54,32 +54,10 @@ const handleTwelveLabsWebhook = httpAction(async (ctx, request) => {
   if (payload.type === "index.task.ready"){
     const newVideo = await ctx.runAction(api.twelve_labs.getVideoFromTask, {
       taskId: payload.data.id,
-    })
+    });
     const videoId = JSON.parse(newVideo).video_id;
-    const section = await ctx.runAction(api.twelve_labs.classifyVideo, {
-      videoId: videoId,
-    })
-    const gist = await ctx.runAction(api.twelve_labs.generateGist, {
-      videoId: videoId,
-    })
-    const summary = await ctx.runAction(api.twelve_labs.generateSummary, {
-      videoId: videoId,
-    })
-    const chapters = await ctx.runAction(api.twelve_labs.generateChapter, {
-      videoId: videoId,
-    })
-    const highlights = await ctx.runAction(api.twelve_labs.generateHighlight, {
-      videoId: videoId,
-    })
-    await ctx.runMutation(internal.videos.createVideo, {
-      twelvelabsId: videoId, 
-      section: JSON.parse(section).data[0].classes[0].name,
-      title: JSON.parse(gist).title,
-      topics: JSON.parse(gist).topics, 
-      hashtags: JSON.parse(gist).hashtags,
-      summary: JSON.parse(summary).summary, 
-      chapters: JSON.parse(chapters).chapters, 
-      highlights: JSON.parse(highlights).highlights,
+    await ctx.runAction(api.videos.doSomeMagic, {
+      videoId: videoId
     });
   }
   return new Response(null, {
