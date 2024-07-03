@@ -39,18 +39,34 @@ export const createIndex = action({
 
 // video
 export const getVideos = action({
-  args: { indexId: v.string()},
-  handler: async (_ctx, {indexId}) => {
+  args: { indexId: v.string() },
+  handler: async (_ctx, { indexId }) => {
     try {
       const response = await axios.request({
         method: "GET",
         url: `${BASE_URL}/indexes/${indexId}/videos`,
         headers: { ...HEADERS },
-        data: { page_limit: PAGE_LIMIT },
       });
       return JSON.stringify(response.data);
     } catch (error) {
       throw new Error(`Error: ${error}`);
     }
-  }
+  },
+});
+
+export const getVideo = action({
+  args: { indexId: v.string(), videoId: v.string() },
+  handler: async (_ctx, { indexId, videoId }) => {
+    try {
+      const response = await axios.request({
+        method: "GET",
+        url: `${BASE_URL}/indexes/${indexId}/videos/${videoId}`,
+        headers: { ...HEADERS },
+      });
+      console.log("indexId", indexId);
+      return JSON.stringify(response.data);
+    } catch (error) {
+      throw new Error(`Error: ${error}`);
+    }
+  },
 });

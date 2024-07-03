@@ -1,4 +1,4 @@
-export function Footer() {
+function Footer() {
   return (
     <footer className="flex flex-col items-center justify-center h-32 w-full border-t bg-white gap-3">
       <div className="flex flex-row items-center justify-center">
@@ -9,7 +9,7 @@ export function Footer() {
           <img
             src="/images/facebook.png"
             alt="facebook link"
-            className="w-9 m-2 rounded border-black border"
+            className="w-9 m-2"
           />
         </a>
         <a href="https://www.linkedin.com" target="_blank">
@@ -27,3 +27,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export default Footer;
