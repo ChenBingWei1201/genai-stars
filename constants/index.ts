@@ -21,3 +21,30 @@ export const ENGINES = [
 ];
 
 export const PAGE_LIMIT = 1;
+
+export const AD = [
+  {
+    id: "1",
+    imageUrl: "/images/bg-demo-1.png",
+    name: "Demo 1",
+    totalPodcasts: 1,
+  },
+  {
+    id: "2",
+    imageUrl: "/images/bg-demo-2.png",
+    name: "Demo 2",
+    totalPodcasts: 2,
+  },
+  {
+    id: "3",
+    imageUrl: "/images/bg-demo-3.png",
+    name: "Demo 3",
+    totalPodcasts: 3,
+  },
+  {
+    id: "4",
+    imageUrl: "/images/bg-demo-4.png",
+    name: "Demo 4",
+    totalPodcasts: 4,
+  },
+];

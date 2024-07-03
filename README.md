@@ -5,6 +5,7 @@ This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a hre
 </p>
 
 ## 📋 <a name="table">Table of Contents</a>
+
 1. 🤖 [Introduction](#introduction)
 2. ⚙️ [Tech Stack](#tech-stack)
 3. 🔋 [Features](#features)
@@ -14,6 +15,7 @@ This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a hre
 ## <a name="introduction">🤖 Introduction</a>
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
+
 - Next.js
 - TypeScript
 - Tailwind CSS
@@ -23,9 +25,11 @@ This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a hre
 - Twelve Labs
 
 ## <a name="features">🔋 Features</a>
+
 👉 **Robust Authentication**: Secure and reliable user login and registration system.
 
 ## <a name="quick-start">🤸 Quick Start</a>
+
 Follow these steps to set up the project locally on your machine.
 
 **Prerequisites**
@@ -85,5 +89,6 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## <a name="deployment">🚀 Deployment </a>
-Deploy on Vercel: 
+
+Deploy on Vercel:
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
