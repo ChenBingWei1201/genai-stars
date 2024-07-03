@@ -1,4 +1,4 @@
-import { action, internalMutation } from "./_generated/server";
+import { action } from "./_generated/server";
 import { v } from "convex/values";
 import axios from "axios";
 import { HEADERS, ENGINES, BASE_URL, PAGE_LIMIT } from "@/constants/index";
@@ -47,6 +47,23 @@ export const getVideos = action({
         url: `${BASE_URL}/indexes/${indexId}/videos`,
         headers: { ...HEADERS },
         params: { page_limit: PAGE_LIMIT },
+      });
+      return JSON.stringify(response.data);
+    } catch (error) {
+      throw new Error(`Error: ${error}`);
+    }
+  }
+});
+
+export const getTasks = action({
+  args: { indexId: v.string()},
+  handler: async (_ctx, {indexId}) => {
+    try {
+      const response = await axios.request({
+        method: "GET",
+        url: `${BASE_URL}/tasks`,
+        headers: { ...HEADERS },
+        params: { index_id: indexId, page_limit: PAGE_LIMIT },
       });
       return JSON.stringify(response.data);
     } catch (error) {
