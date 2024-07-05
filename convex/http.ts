@@ -51,13 +51,13 @@ const handleTwelveLabsWebhook = httpAction(async (ctx, request) => {
     return new Response("Invalid request", { status: 400 });
   }
   const payload = JSON.parse(body);
-  if (payload.type === "index.task.ready"){
+  if (payload.type === "index.task.ready") {
     const newVideo = await ctx.runAction(api.twelve_labs.getVideoFromTask, {
       taskId: payload.data.id,
     });
     const videoId = JSON.parse(newVideo).video_id;
     await ctx.runAction(api.videos.doSomeMagic, {
-      videoId: videoId
+      videoId: videoId,
     });
   }
   return new Response(null, {
@@ -77,14 +77,14 @@ http.route({
   path: "/twelvelabs",
   method: "POST",
   handler: handleTwelveLabsWebhook,
-})
+});
 
-const validateTwelveLabsRequest = ( header: Headers, body: string ): boolean => {
+const validateTwelveLabsRequest = (header: Headers, body: string): boolean => {
   const webhookSecret = process.env.TWELVE_LABS_WEBHOOK_SECRET!;
   if (!webhookSecret) {
     throw new Error("TWELVE_LABS_WEBHOOK_SECRET is not defined");
   }
-  const [ t_raw, v1_raw ] = header.get("TL-Signature")!.split(",");
+  const [t_raw, v1_raw] = header.get("TL-Signature")!.split(",");
   const t = t_raw.split("=")[1];
   const v1 = v1_raw.split("=")[1];
   const signedPayload = t + "." + body;
@@ -93,8 +93,8 @@ const validateTwelveLabsRequest = ( header: Headers, body: string ): boolean => 
   // console.log(v1);
   // console.log(v2);
   // console.log(signedPayload);
-  return (v1 === v2);
-}
+  return v1 === v2;
+};
 
 const validateClerkRequest = async (
   req: Request,

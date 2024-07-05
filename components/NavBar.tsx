@@ -13,7 +13,6 @@ function NavBar() {
     "basketball",
     "football",
     "badminton",
-    "volleyball",
     "tennis",
   ];
 
@@ -23,9 +22,9 @@ function NavBar() {
     else router.push(`/section/${sectionId}`);
   };
   return (
-    <div className="bg-slate-100 w-full">
+    <div className="bg-gray-100 w-full">
       <Segmented
-        className="flex w-10/12 mx-auto flex-center border-b-2 border-x-2 border-slate-50"
+        className="flex w-10/12 mx-auto flex-center border-b-2 border-x-2 border-gray-100"
         options={options}
         value={selectedOption}
         onChange={(value) => {

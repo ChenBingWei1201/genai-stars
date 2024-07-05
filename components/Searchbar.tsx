@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Input } from "./ui/input";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -25,7 +24,7 @@ function Searchbar() {
     <div className="relative mt-5 block">
       <Input
         className="input-class py-6 pl-12 focus-visible:ring-offset-orange-500"
-        placeholder="Search for podcasts"
+        placeholder="Search for videos"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onLoad={() => setSearch("")}
