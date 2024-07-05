@@ -10,14 +10,14 @@ type Post = {
 };
 
 type CommentSectionProps = {
-  post: Post;
+  videoInfo: Post;
 };
 
-function CommentSection({ post }: CommentSectionProps) {
+function CommentSection({ videoInfo }: CommentSectionProps) {
   const pageUrl =
     typeof window !== "undefined" && window.location.hostname === "localhost"
-      ? `http://localhost:3000/video/${post.id}`
-      : `https://genai-stars.com/video/${post.id}`;
+      ? `http://localhost:3000/video/${videoInfo.id}`
+      : `https://genai-stars.com/video/${videoInfo.id}`;
 
   return (
     <LazyLoad placeholder={<LoaderSpinner />}>
@@ -25,8 +25,8 @@ function CommentSection({ post }: CommentSectionProps) {
         shortname="genai-stars" // Ensure this matches your Disqus shortname
         config={{
           url: pageUrl,
-          identifier: post.id,
-          title: post.title,
+          identifier: videoInfo.id,
+          title: videoInfo.title,
         }}
       />
     </LazyLoad>

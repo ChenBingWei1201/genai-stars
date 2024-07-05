@@ -20,7 +20,28 @@ export const ENGINES = [
   },
 ];
 
-export const PAGE_LIMIT = 1;
+export const PAGE_LIMIT = 9;
+
+export const CLASSES = [
+  // Baseball
+  { name: "MLB", prompts: ["baseball"] },
+  { name: "CPBL", prompts: ["baseball"] },
+  { name: "WBC", prompts: ["baseball"] },
+  // Basketball
+  { name: "NBA", prompts: ["basketball"] },
+  { name: "Olympic Basketball", prompts: ["basketball"] },
+  { name: "FIBA Basketball World Cup", prompts: ["basketball"] },
+  // Football
+  { name: "FIFA World Cup", prompts: ["football"] },
+  { name: "Premier League", prompts: ["football"] },
+  { name: "UEFA EURO", prompts: ["football"] },
+  // Badminton
+  { name: "Olympic Badminton", prompts: ["badminton"] },
+  { name: "BWF World Championships", prompts: ["badminton"] },
+  // Tennis
+  { name: "Wimbledon", prompts: ["tennis"] },
+  { name: "The US Open (Tennis)", prompts: ["tennis"] },
+];
 
 export const AD = [
   {

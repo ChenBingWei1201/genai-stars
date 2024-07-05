@@ -27,33 +27,29 @@ function SectionPage() {
     fetchData();
   }, [setData]);
 
-  const demoImages = ["nba", "cpbl", "", "euro", "mlb"];
+  const demoImages = ["nba", "cpbl", "euro", "mlb"];
 
   if (loading) return <LoaderSpinner />;
 
   return (
-    <>
+    <div className="bg-white">
       {data.length === 0 ? (
         <EmptyState title="no index" />
       ) : (
         <div className="w-11/12 mx-auto">
           <div className="flex flex-row flex-wrap justify-start w-full my-10 sm:justify-center md:justify-start lg:justify-start xl:justify-start">
-            {data.map((item: any, index) => {
-              if (item.index_name !== "Premier League") {
-                return (
-                  <IndexFolder
-                    key={item._id}
-                    indexId={item._id}
-                    title={item.index_name}
-                    imgUrl={`/images/${demoImages[index]}.png`}
-                  />
-                );
-              }
-            })}
+            {data.map((item: any, index) => (
+              <IndexFolder
+                key={index}
+                indexId={item._id}
+                title={item.index_name}
+                imgUrl={`/images/${demoImages[index]}.png`}
+              />
+            ))}
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

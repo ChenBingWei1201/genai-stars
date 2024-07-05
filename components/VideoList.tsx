@@ -27,7 +27,6 @@ function VideoList({ videoIds, indexId }: VideoListProps) {
             return JSON.parse(response!);
           }),
         );
-        // console.log(fetchedVideosInfo);
         setVideosInfo(fetchedVideosInfo);
         setLoading(false);
       } catch (error) {
@@ -58,7 +57,6 @@ function VideoList({ videoIds, indexId }: VideoListProps) {
             const title = video_title.split(".mp4")[0];
             const video_thumbnails = videoInfo?.hls.thumbnail_urls;
             const thumbnail = video_thumbnails[0];
-            // console.log(videoInfo);
             return (
               <div
                 className="w-9/12 sm:w-full md:10/12 lg:w-8/12 xl:w-4/12 px-4 py-2 cursor-pointer flex flex-row transition-transform duration-300 ease-in-out transform hover:scale-105"
