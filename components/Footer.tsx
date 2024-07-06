@@ -2,7 +2,10 @@ function Footer() {
   return (
     <footer className="flex flex-col items-center justify-center h-32 w-full border-t bg-white gap-3">
       <div className="flex flex-row items-center justify-center">
-        <a href="https://github.com" target="_blank">
+        <a
+          href="https://github.com/ChenBingWei1201/genai-stars"
+          target="_blank"
+        >
           <img src="/images/github.png" alt="github link" className="w-9 m-2" />
         </a>
         <a href="https://www.facebook.com" target="_blank">

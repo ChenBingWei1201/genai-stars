@@ -10,7 +10,7 @@ export const checkExistVideo = query({
       .query("videos")
       .filter((q) => q.eq(q.field("twelvelabsId"), args.videoId))
       .unique();
-    
+
     return video ? true : false;
   },
 });
@@ -84,20 +84,24 @@ export const createVideo = internalMutation({
     topics: v.array(v.string()),
     hashtags: v.array(v.string()),
     summary: v.string(),
-    chapters: v.array(v.object({
-      chapter_number: v.number(),
-      start: v.number(),
-      end: v.number(),
-      chapter_title: v.string(),
-      chapter_summary: v.string(),
-    })),
-    highlights: v.array(v.object({
-      start: v.number(),
-      end: v.number(),
-      highlight: v.string(),
-      highlight_summary: v.string(),
-      highlight_index: v.number(),
-    })),
+    chapters: v.array(
+      v.object({
+        chapter_number: v.number(),
+        start: v.number(),
+        end: v.number(),
+        chapter_title: v.string(),
+        chapter_summary: v.string(),
+      }),
+    ),
+    highlights: v.array(
+      v.object({
+        start: v.number(),
+        end: v.number(),
+        highlight: v.string(),
+        highlight_summary: v.string(),
+        highlight_index: v.number(),
+      }),
+    ),
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("videos", {
@@ -127,20 +131,24 @@ export const updateVideo = internalMutation({
     topics: v.array(v.string()),
     hashtags: v.array(v.string()),
     summary: v.string(),
-    chapters: v.array(v.object({
-      chapter_number: v.number(),
-      start: v.number(),
-      end: v.number(),
-      chapter_title: v.string(),
-      chapter_summary: v.string(),
-    })),
-    highlights: v.array(v.object({
-      start: v.number(),
-      end: v.number(),
-      highlight: v.string(),
-      highlight_summary: v.string(),
-      highlight_index: v.number(),
-    })),
+    chapters: v.array(
+      v.object({
+        chapter_number: v.number(),
+        start: v.number(),
+        end: v.number(),
+        chapter_title: v.string(),
+        chapter_summary: v.string(),
+      }),
+    ),
+    highlights: v.array(
+      v.object({
+        start: v.number(),
+        end: v.number(),
+        highlight: v.string(),
+        highlight_summary: v.string(),
+        highlight_index: v.number(),
+      }),
+    ),
   },
   async handler(ctx, args) {
     const video = await ctx.db
@@ -219,7 +227,7 @@ export const doSomeMagic = action({
     });
     const existVideo = await ctx.runQuery(api.videos.checkExistVideo, {
       videoId: videoId,
-    })
+    });
     if (existVideo) {
       await ctx.runMutation(internal.videos.updateVideo, {
         twelvelabsId: videoId,
@@ -228,14 +236,13 @@ export const doSomeMagic = action({
         thumbnailUrl: video.thumbnailUrl,
         class: myClass,
         title: JSON.parse(gist).title,
-        topics: JSON.parse(gist).topics, 
+        topics: JSON.parse(gist).topics,
         hashtags: JSON.parse(gist).hashtags,
-        summary: JSON.parse(summary).summary, 
-        chapters: JSON.parse(chapters).chapters, 
+        summary: JSON.parse(summary).summary,
+        chapters: JSON.parse(chapters).chapters,
         highlights: JSON.parse(highlights).highlights,
       });
-    }
-    else {
+    } else {
       await ctx.runMutation(internal.videos.createVideo, {
         twelvelabsId: videoId, 
         filename: video.filename,
@@ -243,10 +250,10 @@ export const doSomeMagic = action({
         thumbnailUrl: video.thumbnailUrl,
         class: myClass,
         title: JSON.parse(gist).title,
-        topics: JSON.parse(gist).topics, 
+        topics: JSON.parse(gist).topics,
         hashtags: JSON.parse(gist).hashtags,
-        summary: JSON.parse(summary).summary, 
-        chapters: JSON.parse(chapters).chapters, 
+        summary: JSON.parse(summary).summary,
+        chapters: JSON.parse(chapters).chapters,
         highlights: JSON.parse(highlights).highlights,
       });
     }

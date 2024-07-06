@@ -82,14 +82,14 @@ http.route({
   path: "/twelvelabs",
   method: "POST",
   handler: handleTwelveLabsWebhook,
-})
+});
 
-const validateTwelveLabsRequest = ( header: Headers, body: string ): boolean => {
+const validateTwelveLabsRequest = (header: Headers, body: string): boolean => {
   const webhookSecret = process.env.TWELVE_LABS_WEBHOOK_SECRET!;
   if (!webhookSecret) {
     throw new Error("TWELVE_LABS_WEBHOOK_SECRET is not defined");
   }
-  const [ t_raw, v1_raw ] = header.get("TL-Signature")!.split(",");
+  const [t_raw, v1_raw] = header.get("TL-Signature")!.split(",");
   const t = t_raw.split("=")[1];
   const v1 = v1_raw.split("=")[1];
   const signedPayload = t + "." + body;
@@ -98,8 +98,8 @@ const validateTwelveLabsRequest = ( header: Headers, body: string ): boolean => 
   // console.log(v1);
   // console.log(v2);
   // console.log(signedPayload);
-  return (v1 === v2);
-}
+  return v1 === v2;
+};
 
 const validateClerkRequest = async (
   req: Request,

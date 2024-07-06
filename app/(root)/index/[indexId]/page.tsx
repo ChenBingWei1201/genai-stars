@@ -6,7 +6,6 @@ import { api } from "@/convex/_generated/api";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import VideoList from "@/components/VideoList";
 import EmptyState from "@/components/EmptyState";
-import Searchbar from "@/components/Searchbar";
 
 function IndexPage({
   params: { indexId },
@@ -42,7 +41,6 @@ function IndexPage({
   return (
     <div>
       <div className="w-11/12 mx-auto">
-        <Searchbar />
         {videoIds.length === 0 ? (
           <EmptyState title="no video" />
         ) : (
