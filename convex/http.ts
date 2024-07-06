@@ -51,20 +51,12 @@ const handleTwelveLabsWebhook = httpAction(async (ctx, request) => {
     return new Response("Invalid request", { status: 400 });
   }
   const payload = JSON.parse(body);
-  if (payload.type === "index.task.ready") {
-    const newVideo = JSON.parse(
-      await ctx.runAction(api.twelve_labs.getVideoFromTask, {
-        taskId: payload.data.id,
-      }),
-    );
-    const videoObj = {
-      videoId: newVideo.videoId,
-      filename: newVideo.metadata.filename,
-      videoUrl: newVideo.hls.video_url,
-      thumbnailUrl: newVideo.hls.thumbnail_urls[0],
-    };
+  if (payload.type === "index.task.ready"){
+    const newVideo = JSON.parse(await ctx.runAction(api.twelve_labs.getVideoFromTask, {
+      taskId: payload.data.id,
+    }));
     await ctx.runAction(api.videos.doSomeMagic, {
-      video: videoObj,
+      videoId: newVideo.videoId
     });
   }
   return new Response(null, {
