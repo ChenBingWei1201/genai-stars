@@ -9,7 +9,7 @@ import { Webhook } from "svix";
 import { api, internal } from "./_generated/api";
 import { httpAction } from "./_generated/server";
 
-import CryptoJS from "crypto-js/crypto-js";
+import CryptoJS from "crypto-js";
 
 const handleClerkWebhook = httpAction(async (ctx, request) => {
   const event = await validateClerkRequest(request);

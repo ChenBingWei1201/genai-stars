@@ -14,9 +14,9 @@ function Searchbar() {
 
   useEffect(() => {
     if (debounceValue) {
-      router.push(`/index?search=${debounceValue}`);
-    } else if (!debounceValue && pathname === "/index") {
-      router.push("/index");
+      router.push(`/discover?search=${debounceValue}`);
+    } else if (!debounceValue && pathname === "/discover") {
+      router.push("/discover");
     }
   }, [router, pathname, debounceValue]);
 
@@ -24,7 +24,7 @@ function Searchbar() {
     <div className="relative mt-5 block">
       <Input
         className="input-class py-6 pl-12 focus-visible:ring-offset-orange-500"
-        placeholder="Search for videos"
+        placeholder="Search for more videos"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onLoad={() => setSearch("")}

@@ -4,20 +4,16 @@ import { DiscussionEmbed } from "disqus-react";
 import LazyLoad from "react-lazyload";
 import LoaderSpinner from "./LoaderSpinner";
 
-type Post = {
+type CommentSectionProps = {
   id: string;
   title: string;
 };
 
-type CommentSectionProps = {
-  videoInfo: Post;
-};
-
-function CommentSection({ videoInfo }: CommentSectionProps) {
+function CommentSection({ id, title }: CommentSectionProps) {
   const pageUrl =
     typeof window !== "undefined" && window.location.hostname === "localhost"
-      ? `http://localhost:3000/video/${videoInfo.id}`
-      : `https://genai-stars.com/video/${videoInfo.id}`;
+      ? `http://localhost:3000/video/${id}`
+      : `https://genai-stars.com/video/${id}`;
 
   return (
     <LazyLoad placeholder={<LoaderSpinner />}>
@@ -25,8 +21,8 @@ function CommentSection({ videoInfo }: CommentSectionProps) {
         shortname="genai-stars" // Ensure this matches your Disqus shortname
         config={{
           url: pageUrl,
-          identifier: videoInfo.id,
-          title: videoInfo.title,
+          identifier: id,
+          title: title,
         }}
       />
     </LazyLoad>

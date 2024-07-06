@@ -7,7 +7,7 @@ type AdBarProps = {
 function AdBar({ src, alt }: AdBarProps) {
   return (
     <div className="w-fit">
-      <img src={src} alt={alt} className="" />
+      <img src={src} alt={alt} />
     </div>
   );
 }

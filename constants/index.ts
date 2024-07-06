@@ -1,3 +1,5 @@
+import Base from "antd/es/typography/Base";
+
 // base url
 export const BASE_URL = "https://api.twelvelabs.io/v1.2";
 
@@ -22,6 +24,32 @@ export const ENGINES = [
 
 export const PAGE_LIMIT = 9;
 
+export const SECTIONS = [
+  "Home",
+  "Baseball",
+  "Basketball",
+  "Football",
+  "Badminton",
+  "Tennis",
+];
+
+export const SECTION_IDS = {
+  Home: "Home",
+  Baseball: "MLB.CPBL.WBC",
+  Basketball: "NBA.Olympic Basketball.FIBA Basketball World Cup",
+  Football: "FIFA World Cup.Premier League.UEFA EURO",
+  Badminton: "Olympic Badminton.BWF World Championships",
+  Tennis: "Wimbledon.The US Open (Tennis)",
+};
+
+export const SECTION_CLASS_MAP = {
+  Baseball: ["MLB", "CPBL", "WBC"],
+  Basketball: ["NBA", "Olympic Basketball", "FIBA Basketball World Cup"],
+  Football: ["FIFA World Cup", "Premier League", "UEFA EURO"],
+  Badminton: ["Olympic Badminton", "BWF World Championships"],
+  Tennis: ["Wimbledon", "The US Open (Tennis)"],
+};
+
 export const CLASSES = [
   // Baseball
   { name: "MLB", prompts: ["baseball"] },
@@ -42,6 +70,22 @@ export const CLASSES = [
   { name: "Wimbledon", prompts: ["tennis"] },
   { name: "The US Open (Tennis)", prompts: ["tennis"] },
 ];
+
+export const IMAGES = {
+  MLB: "mlb",
+  CPBL: "cpbl",
+  WBC: "wbc",
+  NBA: "nba",
+  "Olympic Basketball": "olympic-basketball",
+  "FIBA Basketball World Cup": "fiba-basketball-world-cup",
+  "FIFA World Cup": "fifa-world-cup",
+  "Premier League": "premier-league",
+  "UEFA EURO": "uefa-euro",
+  "Olympic Badminton": "olympic-badminton",
+  "BWF World Championships": "bwf-world-championships",
+  Wimbledon: "wimbledon",
+  "The US Open (Tennis)": "the-us-open-tennis",
+};
 
 export const AD = [
   {
