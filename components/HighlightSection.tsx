@@ -20,7 +20,7 @@ function HighlightSection({
   highlights,
   url,
 }: {
-  highlights: HighlightProp[];
+  highlights?: HighlightProp[];
   url: string;
 }) {
   return (
@@ -31,7 +31,7 @@ function HighlightSection({
       className="w-full"
     >
       <CarouselContent>
-        {highlights.map((highlight, index) => (
+        {highlights?.map((highlight, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
             <div className="p-1 w-full">
               <ReactPlayer

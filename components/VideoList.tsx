@@ -14,6 +14,7 @@ type VideoListProps = {
 };
 
 function VideoList({ videos }: VideoListProps) {
+  // console.log(videos);
   const router = useRouter();
   // const [videosInfo, setVideosInfo] = useState<any[]>([]);
   // const [loading, setLoading] = useState(true);
@@ -41,8 +42,7 @@ function VideoList({ videos }: VideoListProps) {
   //   (videoInfo) => videoInfo?.indexed_at,
   // );
 
-  const numVideos = videos.length;
-
+  const numVideos = videos?.length;
   const handleClick = (videoId: string) => {
     router.push(`/video/${videoId}`);
   };
@@ -53,8 +53,8 @@ function VideoList({ videos }: VideoListProps) {
         <LoaderSpiner />
       ) : ( */}
       <div className="flex flex-row flex-wrap justify-start w-full my-10 sm:justify-center md:justify-start lg:justify-start xl:justify-start">
-        {videos.map((video, index) => {
-          const title = video.title.splot(".mp4")[0];
+        {videos?.map((video, index) => {
+          const title = video.filename.split(".mp4")[0];
           return (
             <div
               className="w-9/12 sm:w-full md:10/12 lg:w-8/12 xl:w-4/12 px-4 py-2 cursor-pointer flex flex-row transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -71,7 +71,7 @@ function VideoList({ videos }: VideoListProps) {
                 <Col className="gutter-row" span={24}>
                   <div onClick={() => handleClick(`${video.twelvelabsId}`)}>
                     <img
-                      src={video.thumbnail}
+                      src={video.thumbnailUrl}
                       alt={title}
                       className="border-3 rounded-xl border-transparent"
                     />

@@ -21,14 +21,15 @@ function SectionPage({
   params: { sectionId: string };
 }) {
   const router = useRouter();
-  // const getIndexes = useAction(api.twelve_labs.getIndexes); // replace
   const allVideos = useQuery(api.videos.getAllVideos);
+  // console.log("allVideos", allVideos);
+  // const getIndexes = useAction(api.twelve_labs.getIndexes); // replace
   const [videos, setVideos] = useState<any>();
   // const [data, setData] = useState([]); // replace
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(sectionId);
+    // console.log(sectionId);
     if (
       sectionId != "Home" &&
       sectionId != "Baseball" &&
@@ -47,13 +48,14 @@ function SectionPage({
         // const response = await getIndexes();
         // setData(JSON.parse(response!)?.data);
         // const response: any = await getAllVideos();
-        console.log(SECTION_IDS[sectionId]);
+        // console.log("test", SECTION_IDS[sectionId]);
         setVideos(
           allVideos?.filter((video: any) =>
             SECTION_IDS[sectionId].includes(video.class),
           ),
         );
         setLoading(false);
+        // console.log(videos);
         // console.log(data);
       } catch (error) {
         console.log(error);
@@ -62,7 +64,7 @@ function SectionPage({
       }
     };
     fetchData();
-  }, [setVideos]); // setVideos, getAllVideos
+  }, [setVideos, allVideos]); // setVideos, getAllVideos
 
   // const demoImages = ["nba", "cpbl", "euro", "mlb"]; // replace
 
@@ -73,7 +75,7 @@ function SectionPage({
       {videos ? (
         <div className="bg-white">
           {videos.length === 0 ? (
-            <EmptyState title="no index" />
+            <EmptyState title="no folder" />
           ) : (
             <div className="w-11/12 mx-auto">
               <div className="flex flex-row flex-wrap justify-start w-full my-10 sm:justify-center md:justify-start lg:justify-start xl:justify-start">
@@ -100,7 +102,8 @@ function SectionPage({
           )}
         </div>
       ) : (
-        <EmptyState title="no index" />
+        // <EmptyState title="no folder" />
+        <LoaderSpinner />
       )}
     </>
   );

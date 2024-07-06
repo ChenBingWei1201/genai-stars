@@ -73,7 +73,7 @@ export const getVideo = action({
         url: `${BASE_URL}/indexes/${indexId}/videos/${videoId}`,
         headers: { ...HEADERS },
       });
-      console.log("videoId", videoId);
+      // console.log("videoId", videoId);
       return JSON.stringify(response.data);
     } catch (error) {
       throw new Error(`Error: ${error}`);
@@ -145,14 +145,21 @@ export const findSimilarVideo = action({
   args: { indexId: v.string(), prompt: v.string() },
   handler: async (_ctx, { indexId, prompt }) => {
     try {
+      const data = {
+        index_id: indexId,
+        search_options: ["visual", "conversation", "text_in_video", "logo"],
+        query: prompt,
+        group_by: "video",
+        sort_option: "clip_count",
+        threshold: "high",
+        adjust_confidence_level: 1,
+        page_limit: PAGE_LIMIT,
+      };
       const response = await axios.request({
         method: "POST",
-        url: `${BASE_URL}/search-v2`,
+        url: `${BASE_URL}/search`,
         headers: { ...HEADERS },
-        data: {
-          index_id: indexId,
-          query_text: prompt,
-        },
+        data: data,
       });
       return JSON.stringify(response.data);
     } catch (error) {
