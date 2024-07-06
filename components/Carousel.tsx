@@ -57,7 +57,7 @@ const EmblaCarousel = ({ ads }: CarouselProps) => {
           <figure
             key={item.id}
             className="carousel_box"
-            onClick={() => router.push(`/index/${item.id}`)}
+            // onClick={() => router.push(`/class/${item.id}`)}
           >
             <img
               src={item.imageUrl}

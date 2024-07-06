@@ -1,5 +1,3 @@
-import Base from "antd/es/typography/Base";
-
 // base url
 export const BASE_URL = "https://api.twelvelabs.io/v1.2";
 
@@ -33,7 +31,7 @@ export const SECTIONS = [
   "Tennis",
 ];
 
-export const SECTION_IDS = {
+export const SECTION_IDS: any = {
   Home: "Home",
   Baseball: "MLB.CPBL.WBC",
   Basketball: "NBA.Olympic Basketball.FIBA Basketball World Cup",
@@ -42,7 +40,7 @@ export const SECTION_IDS = {
   Tennis: "Wimbledon.The US Open (Tennis)",
 };
 
-export const SECTION_CLASS_MAP = {
+export const SECTION_CLASS_MAP: any = {
   Baseball: ["MLB", "CPBL", "WBC"],
   Basketball: ["NBA", "Olympic Basketball", "FIBA Basketball World Cup"],
   Football: ["FIFA World Cup", "Premier League", "UEFA EURO"],
@@ -52,26 +50,32 @@ export const SECTION_CLASS_MAP = {
 
 export const CLASSES = [
   // Baseball
-  { name: "MLB", prompts: ["baseball"] },
-  { name: "CPBL", prompts: ["baseball"] },
-  { name: "WBC", prompts: ["baseball"] },
+  { name: "MLB", prompts: ["baseball", "MLB"] },
+  { name: "CPBL", prompts: ["baseball", "CPBL"] },
+  { name: "WBC", prompts: ["baseball", "WBC"] },
   // Basketball
-  { name: "NBA", prompts: ["basketball"] },
-  { name: "Olympic Basketball", prompts: ["basketball"] },
-  { name: "FIBA Basketball World Cup", prompts: ["basketball"] },
+  { name: "NBA", prompts: ["basketball", "NBA"] },
+  { name: "Olympic Basketball", prompts: ["basketball", "Olympic Basketball"] },
+  {
+    name: "FIBA Basketball World Cup",
+    prompts: ["basketball", "FIBA Basketball World Cup"],
+  },
   // Football
-  { name: "FIFA World Cup", prompts: ["football"] },
-  { name: "Premier League", prompts: ["football"] },
-  { name: "UEFA EURO", prompts: ["football"] },
+  { name: "FIFA World Cup", prompts: ["football", "FIFA World Cup"] },
+  { name: "Premier League", prompts: ["football", "Premier League"] },
+  { name: "UEFA EURO", prompts: ["football", "UEFA EURO"] },
   // Badminton
-  { name: "Olympic Badminton", prompts: ["badminton"] },
-  { name: "BWF World Championships", prompts: ["badminton"] },
+  { name: "Olympic Badminton", prompts: ["badminton", "Olympic Badminton"] },
+  {
+    name: "BWF World Championships",
+    prompts: ["badminton", "BWF World Championships"],
+  },
   // Tennis
-  { name: "Wimbledon", prompts: ["tennis"] },
-  { name: "The US Open (Tennis)", prompts: ["tennis"] },
+  { name: "Wimbledon", prompts: ["tennis", "Wimbledon"] },
+  { name: "The US Open (Tennis)", prompts: ["tennis", "The US Open (Tennis)"] },
 ];
 
-export const IMAGES = {
+export const IMAGES: any = {
   MLB: "mlb",
   CPBL: "cpbl",
   WBC: "wbc",

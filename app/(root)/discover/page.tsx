@@ -6,7 +6,7 @@ import EmptyState from "@/components/EmptyState";
 import LoaderSpiner from "@/components/LoaderSpinner";
 import Searchbar from "@/components/Searchbar";
 import { Row, Col } from "antd";
-import { videoData } from "@/constants/dummyData"; // replace
+// import { videoData } from "@/constants/dummyData"; // replace
 import { useRouter } from "next/navigation";
 
 function Discover({
@@ -16,11 +16,11 @@ function Discover({
 }) {
   const router = useRouter();
 
-  // const videoData = useQuery(api.videos.getVideoBySearch, {
-  //   search: search || "",
-  // });
+  const videoData = useQuery(api.videos.getVideoBySearch, {
+    search: search || "",
+  });
 
-  const numVideos = videoData.length;
+  const numVideos: any = videoData?.length;
   const handleClick = (videoId: string) => {
     router.push(`/video/${videoId}`);
   };
