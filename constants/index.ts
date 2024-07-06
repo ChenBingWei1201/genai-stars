@@ -22,7 +22,7 @@ export const ENGINES = [
   },
 ];
 
-export const PAGE_LIMIT = 9;
+export const PAGE_LIMIT = 50;
 
 export const SECTIONS = [
   "Home",

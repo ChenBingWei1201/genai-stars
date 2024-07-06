@@ -192,14 +192,13 @@ export const deleteVideo = internalMutation({
 });
 
 export const doSomeMagic = action({
-  args: { video: v.object({
-    videoId: v.string(),
-    filename: v.string(),
-    videoUrl: v.string(), 
-    thumbnailUrl: v.string(),
-  }) },
-  handler: async (ctx, { video }) => {
-    const videoId = video.videoId;
+  args: { videoId: v.string() },
+  handler: async (ctx, { videoId }) => {
+    const videoInfo = await ctx.runAction(api.twelve_labs.getVideo, {
+      indexId: process.env.INDEX_ID!,
+      videoId: videoId,
+    });
+    const videoObj = JSON.parse(videoInfo);
     const classes = await ctx.runAction(api.twelve_labs.classifyVideo, {
       videoId: videoId,
     });
@@ -231,9 +230,9 @@ export const doSomeMagic = action({
     if (existVideo) {
       await ctx.runMutation(internal.videos.updateVideo, {
         twelvelabsId: videoId,
-        filename: video.filename,
-        videoUrl: video.videoUrl, 
-        thumbnailUrl: video.thumbnailUrl,
+        filename: videoObj.metadata.filename,
+        videoUrl: videoObj.source?.url || videoObj.hls.video_url, 
+        thumbnailUrl: videoObj.hls.thumbnail_urls[0],
         class: myClass,
         title: JSON.parse(gist).title,
         topics: JSON.parse(gist).topics,
@@ -245,9 +244,9 @@ export const doSomeMagic = action({
     } else {
       await ctx.runMutation(internal.videos.createVideo, {
         twelvelabsId: videoId, 
-        filename: video.filename,
-        videoUrl: video.videoUrl, 
-        thumbnailUrl: video.thumbnailUrl,
+        filename: videoObj.metadata.filename,
+        videoUrl: videoObj.hls.video_url, 
+        thumbnailUrl: videoObj.hls.thumbnail_urls[0],
         class: myClass,
         title: JSON.parse(gist).title,
         topics: JSON.parse(gist).topics,
