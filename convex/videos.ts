@@ -17,9 +17,10 @@ export const checkExistVideo = query({
 
 export const getAllVideos = query({
   handler: async (ctx) => {
-    return await ctx.db.query("videos").order("desc").collect();
+    const videos = await ctx.db.query("videos").order("desc").collect();
+    return videos;
   },
-})
+});
 
 export const getVideoById = query({
   args: { videoId: v.string() },
@@ -50,7 +51,7 @@ export const getVideoByClass = query({
 });
 
 export const getVideoBySearch = query({
-  args: { search: v.string() }, 
+  args: { search: v.string() },
   handler: async (ctx, args) => {
     if (args.search === "") {
       return await ctx.db.query("videos").order("desc").collect();
@@ -58,26 +59,28 @@ export const getVideoBySearch = query({
 
     const filenameSearch = await ctx.db
       .query("videos")
-      .withSearchIndex("search_filename", (q) => q.search("filename", args.search))
+      .withSearchIndex("search_filename", (q) =>
+        q.search("filename", args.search),
+      )
       .take(10);
-    
+
     // if (filenameSearch.length > 0) {
     return filenameSearch;
     // }
 
     // return await ctx.db
     //   .query("videos")
-    //   .withSearchIndex("search_body", (q) => 
-    //     q.search("title" || "topics" || "hashtags", args.search), 
+    //   .withSearchIndex("search_body", (q) =>
+    //     q.search("title" || "topics" || "hashtags", args.search),
     //   ).take(10)
   },
-})
+});
 
 export const createVideo = internalMutation({
   args: {
     twelvelabsId: v.string(),
     filename: v.string(),
-    videoUrl: v.string(), 
+    videoUrl: v.string(),
     thumbnailUrl: v.string(),
     class: v.string(),
     title: v.string(),
@@ -105,16 +108,16 @@ export const createVideo = internalMutation({
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("videos", {
-      twelvelabsId: args.twelvelabsId, 
+      twelvelabsId: args.twelvelabsId,
       filename: args.filename,
       videoUrl: args.videoUrl,
       thumbnailUrl: args.thumbnailUrl,
       class: args.class,
-      title: args.title, 
-      topics: args.topics, 
-      hashtags: args.hashtags, 
-      summary: args.summary, 
-      chapters: args.chapters, 
+      title: args.title,
+      topics: args.topics,
+      hashtags: args.hashtags,
+      summary: args.summary,
+      chapters: args.chapters,
       highlights: args.highlights,
     });
   },
@@ -124,7 +127,7 @@ export const updateVideo = internalMutation({
   args: {
     twelvelabsId: v.string(),
     filename: v.string(),
-    videoUrl: v.string(), 
+    videoUrl: v.string(),
     thumbnailUrl: v.string(),
     class: v.string(),
     title: v.string(),
@@ -165,11 +168,11 @@ export const updateVideo = internalMutation({
       videoUrl: args.videoUrl,
       thumbnailUrl: args.thumbnailUrl,
       class: args.class,
-      title: args.title, 
-      topics: args.topics, 
-      hashtags: args.hashtags, 
-      summary: args.summary, 
-      chapters: args.chapters, 
+      title: args.title,
+      topics: args.topics,
+      hashtags: args.hashtags,
+      summary: args.summary,
+      chapters: args.chapters,
       highlights: args.highlights,
     });
   },
@@ -192,20 +195,23 @@ export const deleteVideo = internalMutation({
 });
 
 export const doSomeMagic = action({
-  args: { video: v.object({
-    videoId: v.string(),
-    filename: v.string(),
-    videoUrl: v.string(), 
-    thumbnailUrl: v.string(),
-  }) },
+  args: {
+    video: v.object({
+      videoId: v.string(),
+      filename: v.string(),
+      videoUrl: v.string(),
+      thumbnailUrl: v.string(),
+    }),
+  },
   handler: async (ctx, { video }) => {
     const videoId = video.videoId;
     const classes = await ctx.runAction(api.twelve_labs.classifyVideo, {
       videoId: videoId,
     });
     const classObj = JSON.parse(classes);
-    let myClass = "Other", myScore = 0;
-    if (classObj.data.length > 0){
+    let myClass = "Other",
+      myScore = 0;
+    if (classObj.data.length > 0) {
       for (let i = 0; i < classObj.data.classes.length; i++) {
         if (classObj.data.classes[i].score > myScore) {
           myClass = classObj.data.classes[i].name;
@@ -232,7 +238,7 @@ export const doSomeMagic = action({
       await ctx.runMutation(internal.videos.updateVideo, {
         twelvelabsId: videoId,
         filename: video.filename,
-        videoUrl: video.videoUrl, 
+        videoUrl: video.videoUrl,
         thumbnailUrl: video.thumbnailUrl,
         class: myClass,
         title: JSON.parse(gist).title,
@@ -244,9 +250,9 @@ export const doSomeMagic = action({
       });
     } else {
       await ctx.runMutation(internal.videos.createVideo, {
-        twelvelabsId: videoId, 
+        twelvelabsId: videoId,
         filename: video.filename,
-        videoUrl: video.videoUrl, 
+        videoUrl: video.videoUrl,
         thumbnailUrl: video.thumbnailUrl,
         class: myClass,
         title: JSON.parse(gist).title,

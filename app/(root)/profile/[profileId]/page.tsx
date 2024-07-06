@@ -24,6 +24,7 @@ const ProfilePage = ({
   // });
 
   if (!user || !videoData) return <LoaderSpinner />;
+
   return (
     <section className="flex flex-col w-11/12 mx-auto justify-start">
       <h1 className="text-32 font-bold p-1">User Profile</h1>

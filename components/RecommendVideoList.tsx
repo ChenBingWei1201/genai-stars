@@ -8,25 +8,26 @@ import { useRouter } from "next/navigation";
 
 type RecommedVideoListProps = {
   videoIds: string[];
-  indexId: string; // replace
+  // indexId: string; // replace
 };
 
-function RecommendVideoList({ videoIds, indexId }: RecommedVideoListProps) {
+function RecommendVideoList({ videoIds }: RecommedVideoListProps) {
   const router = useRouter();
   const [videosInfo, setVideosInfo] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  // const getVideoById = useQuery(api.videos.getVideoById);
-  const getVideo = useAction(api.twelve_labs.getVideo);
+  // const getVideo = useAction(api.twelve_labs.getVideo);
 
   useEffect(() => {
     const fetchVideosInfo = async () => {
       try {
+        // const getVideoById
         const fetchedVideosInfo = await Promise.all(
           videoIds.map(async (videoId) => {
-            const response = await getVideo({ indexId, videoId });
-            // const response = await getVideoById({ videoId: videoId });
-            // return response;
-            return JSON.parse(response!);
+            const response = useQuery(api.videos.getVideoById, {
+              videoId: videoId,
+            });
+            return response;
+            // return JSON.parse(response!);
           }),
         );
         setVideosInfo(fetchedVideosInfo);
@@ -36,7 +37,7 @@ function RecommendVideoList({ videoIds, indexId }: RecommedVideoListProps) {
       }
     };
     fetchVideosInfo();
-  }, [setVideosInfo, setLoading, videoIds, indexId]); // replace
+  }, [setVideosInfo, setLoading, videoIds]); // replace
 
   const filteredVideosInfo = videosInfo.filter(
     (videoInfo) => videoInfo?.indexed_at,
@@ -57,21 +58,21 @@ function RecommendVideoList({ videoIds, indexId }: RecommedVideoListProps) {
             <div className="p-2 mt-5 w-11/12 mx-auto">
               <div className="flex flex-col space-y-8">
                 {filteredVideosInfo?.map((videoInfo, index) => {
-                  const video_title: string = videoInfo?.metadata.video_title; // replace
-                  // const video_title: string = videoInfo.filname;
+                  // const video_title: string = videoInfo?.metadata.video_title; // replace
+                  const video_title: string = videoInfo.filname;
                   const title =
                     video_title.length < 50
                       ? video_title.split(".mp4")[0]
                       : video_title.split(".mp4")[0].slice(0, 50) + "...";
-                  const video_thumbnails = videoInfo?.hls.thumbnail_urls; // replace
-                  const thumbnail = video_thumbnails[0]; // replace
-                  // const thumbnail = videoInfo.thumbnailUrl;
+                  // const video_thumbnails = videoInfo?.hls.thumbnail_urls; // replace
+                  // const thumbnail = video_thumbnails[0]; // replace
+                  const thumbnail = videoInfo.thumbnailUrl;
                   return (
                     <div
                       className="flex items-start space-x-2 cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
                       key={index}
-                      onClick={() => handleClick(`${videoInfo._id}.${indexId}`)}
-                      // onClick={() => handleClick(`${videoInfo.twelvelabsId}`)}
+                      // onClick={() => handleClick(`${videoInfo._id}.${indexId}`)}
+                      onClick={() => handleClick(`${videoInfo.twelvelabsId}`)}
                     >
                       <img
                         src={thumbnail}

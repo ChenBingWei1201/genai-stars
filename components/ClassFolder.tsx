@@ -2,31 +2,31 @@
 
 import { useRouter } from "next/navigation";
 
-type IndexFolderProps = {
-  indexId: string;
+// type IndexFolderProps = {
+//   indexId: string;
+//   title: string;
+//   imgUrl: string;
+// };
+type ClassFolderProps = {
+  classId: string;
   title: string;
   imgUrl: string;
 };
-// ClassFolderProps = {
-//  classId: string;
-//  title: string;
-//  imgUrl: string;
-// };
-// function ClassFolder({ classId, title, imgUrl }: ClassFolderProps) {
-function IndexFolder({ indexId, title, imgUrl }: IndexFolderProps) {
+function ClassFolder({ classId, title, imgUrl }: ClassFolderProps) {
+  // function ClassFolder({ indexId, title, imgUrl }: IndexFolderProps) {
   const router = useRouter();
 
-  const handleView = () => {
-    router.push(`/index/${indexId}`, {
-      scroll: true,
-    });
-  };
-
   // const handleView = () => {
-  //   router.push(`/index/${classId}`, {
+  //   router.push(`/class/${classId}`, {
   //     scroll: true,
   //   });
   // };
+
+  const handleView = () => {
+    router.push(`/class/${classId}`, {
+      scroll: true,
+    });
+  };
 
   return (
     <div
@@ -51,4 +51,4 @@ function IndexFolder({ indexId, title, imgUrl }: IndexFolderProps) {
   );
 }
 
-export default IndexFolder;
+export default ClassFolder;
