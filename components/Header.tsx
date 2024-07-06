@@ -30,7 +30,7 @@ function Header() {
             <SignedIn>
               <Link href={`/profile/${user?.id}`} className="flex gap-3">
                 <UserButton />
-                <div className="flex w-full items-center justify-between">
+                <div className="flex w-full items-center justify-between transform active:scale-95 transition-transform duration-200">
                   <h1 className="text-16 truncate font-bold text-black">
                     {user?.firstName} {user?.lastName}
                   </h1>
@@ -51,7 +51,12 @@ function Header() {
                 variant="plain"
                 size="lg"
               >
-                <Link href="/sign-in">Sign in</Link>
+                <Link
+                  href="/sign-in"
+                  className="transform active:scale-95 transition-transform duration-200"
+                >
+                  Sign in
+                </Link>
               </Button>
             </SignedOut>
           </div>

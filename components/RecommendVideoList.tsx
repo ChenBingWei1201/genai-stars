@@ -1,20 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAction } from "convex/react";
+import { useAction, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import LoaderSpiner from "./LoaderSpinner";
 import { useRouter } from "next/navigation";
 
 type RecommedVideoListProps = {
   videoIds: string[];
-  indexId: string;
+  indexId: string; // replace
 };
 
 function RecommendVideoList({ videoIds, indexId }: RecommedVideoListProps) {
   const router = useRouter();
   const [videosInfo, setVideosInfo] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  // const getVideoById = useQuery(api.videos.getVideoById);
   const getVideo = useAction(api.twelve_labs.getVideo);
 
   useEffect(() => {
@@ -23,24 +24,24 @@ function RecommendVideoList({ videoIds, indexId }: RecommedVideoListProps) {
         const fetchedVideosInfo = await Promise.all(
           videoIds.map(async (videoId) => {
             const response = await getVideo({ indexId, videoId });
+            // const response = await getVideoById({ videoId: videoId });
+            // return response;
             return JSON.parse(response!);
           }),
         );
         setVideosInfo(fetchedVideosInfo);
         setLoading(false);
-        console.log(fetchedVideosInfo);
       } catch (error) {
         console.log(error);
       }
     };
     fetchVideosInfo();
-  }, [setVideosInfo, setLoading, videoIds, indexId]);
+  }, [setVideosInfo, setLoading, videoIds, indexId]); // replace
 
   const filteredVideosInfo = videosInfo.filter(
     (videoInfo) => videoInfo?.indexed_at,
+    // (videoInfo) => videoInfo?.twelvelabsId,
   );
-
-  // const numVideos = videosInfo.length;
 
   const handleClick = (videoId: string) => {
     router.push(`/video/${videoId}`);
@@ -48,7 +49,7 @@ function RecommendVideoList({ videoIds, indexId }: RecommedVideoListProps) {
 
   return (
     <>
-      {!videosInfo ? (
+      {!videosInfo && loading ? (
         <LoaderSpiner />
       ) : (
         <>
@@ -56,18 +57,21 @@ function RecommendVideoList({ videoIds, indexId }: RecommedVideoListProps) {
             <div className="p-2 mt-5 w-11/12 mx-auto">
               <div className="flex flex-col space-y-8">
                 {filteredVideosInfo?.map((videoInfo, index) => {
-                  const video_title: string = videoInfo?.metadata.video_title;
+                  const video_title: string = videoInfo?.metadata.video_title; // replace
+                  // const video_title: string = videoInfo.filname;
                   const title =
                     video_title.length < 50
                       ? video_title.split(".mp4")[0]
                       : video_title.split(".mp4")[0].slice(0, 50) + "...";
-                  const video_thumbnails = videoInfo?.hls.thumbnail_urls;
-                  const thumbnail = video_thumbnails[0];
+                  const video_thumbnails = videoInfo?.hls.thumbnail_urls; // replace
+                  const thumbnail = video_thumbnails[0]; // replace
+                  // const thumbnail = videoInfo.thumbnailUrl;
                   return (
                     <div
                       className="flex items-start space-x-2 cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
                       key={index}
                       onClick={() => handleClick(`${videoInfo._id}.${indexId}`)}
+                      // onClick={() => handleClick(`${videoInfo.twelvelabsId}`)}
                     >
                       <img
                         src={thumbnail}

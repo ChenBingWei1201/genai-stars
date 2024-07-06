@@ -30,7 +30,7 @@ function ChapterSection({
         <h2 className="text-3xl font-semibold mb-4">Chapters</h2>
         <button
           onClick={toggleChapterSection}
-          className="bg-orange-500 text-white px-4 py-2 rounded mb-4 text-14 font-semibold"
+          className="bg-orange-500 text-white px-4 py-2 rounded mb-4 text-14 font-semibold transform active:scale-95 transition-transform duration-200"
         >
           {isOpen ? "Hide Chapters" : "Show Chapters"}
         </button>
@@ -53,7 +53,7 @@ function ChapterSection({
                 width="100%"
                 height="100%"
               />
-              <div className="flex flex-col">
+              <div className="flex flex-col w-7/12 mx-auto">
                 <span className="block text-gray-600 hover:underline cursor-pointer text-lg font-semibold">
                   {chapter.chapter_title}
                 </span>

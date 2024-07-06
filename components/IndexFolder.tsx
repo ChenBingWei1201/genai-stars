@@ -7,7 +7,12 @@ type IndexFolderProps = {
   title: string;
   imgUrl: string;
 };
-
+// ClassFolderProps = {
+//  classId: string;
+//  title: string;
+//  imgUrl: string;
+// };
+// function ClassFolder({ classId, title, imgUrl }: ClassFolderProps) {
 function IndexFolder({ indexId, title, imgUrl }: IndexFolderProps) {
   const router = useRouter();
 
@@ -16,6 +21,12 @@ function IndexFolder({ indexId, title, imgUrl }: IndexFolderProps) {
       scroll: true,
     });
   };
+
+  // const handleView = () => {
+  //   router.push(`/index/${classId}`, {
+  //     scroll: true,
+  //   });
+  // };
 
   return (
     <div

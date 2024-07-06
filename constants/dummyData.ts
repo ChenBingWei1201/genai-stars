@@ -85,3 +85,31 @@ export const chapters = [
     chapter_summary: "This is a summary of chapter 6",
   },
 ];
+
+export const videoData = [
+  {
+    twelvelabsId: "1",
+    thumbnailUrl: "https://http.cat/200",
+    filename: "Video 1",
+  },
+  {
+    twelvelabsId: "2",
+    thumbnailUrl: "https://http.cat/400",
+    filename: "Video 2",
+  },
+  {
+    twelvelabsId: "3",
+    thumbnailUrl: "https://http.cat/404",
+    filename: "Video 3",
+  },
+  {
+    twelvelabsId: "4",
+    thumbnailUrl: "https://http.cat/500",
+    filename: "Video 4",
+  },
+  {
+    twelvelabsId: "5",
+    thumbnailUrl: "https://http.cat/503",
+    filename: "Video 5",
+  },
+];
