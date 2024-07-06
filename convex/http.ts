@@ -9,7 +9,7 @@ import { Webhook } from "svix";
 import { api, internal } from "./_generated/api";
 import { httpAction } from "./_generated/server";
 
-import CryptoJS from "crypto-js/crypto-js";
+import CryptoJS from "crypto-js";
 
 const handleClerkWebhook = httpAction(async (ctx, request) => {
   const event = await validateClerkRequest(request);
@@ -51,13 +51,18 @@ const handleTwelveLabsWebhook = httpAction(async (ctx, request) => {
     return new Response("Invalid request", { status: 400 });
   }
   const payload = JSON.parse(body);
-  if (payload.type === "index.task.ready") {
-    const newVideo = await ctx.runAction(api.twelve_labs.getVideoFromTask, {
+  if (payload.type === "index.task.ready"){
+    const newVideo = JSON.parse(await ctx.runAction(api.twelve_labs.getVideoFromTask, {
       taskId: payload.data.id,
-    });
-    const videoId = JSON.parse(newVideo).video_id;
+    }));
+    const videoObj = {
+      videoId: newVideo.videoId,
+      filename: newVideo.metadata.filename,
+      videoUrl: newVideo.hls.video_url, 
+      thumbnailUrl: newVideo.hls.thumbnail_urls[0],
+    }
     await ctx.runAction(api.videos.doSomeMagic, {
-      videoId: videoId,
+      video: videoObj
     });
   }
   return new Response(null, {

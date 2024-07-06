@@ -15,6 +15,12 @@ export const checkExistVideo = query({
   },
 });
 
+export const getAllVideos = query({
+  handler: async (ctx) => {
+    return await ctx.db.query("videos").order("desc").collect();
+  },
+})
+
 export const getVideoById = query({
   args: { videoId: v.string() },
   handler: async (ctx, args) => {
@@ -31,10 +37,49 @@ export const getVideoById = query({
   },
 });
 
+export const getVideoByClass = query({
+  args: { class: v.string() },
+  handler: async (ctx, args) => {
+    const video = await ctx.db
+      .query("videos")
+      .filter((q) => q.eq(q.field("class"), args.class))
+      .collect();
+
+    return video;
+  },
+});
+
+export const getVideoBySearch = query({
+  args: { search: v.string() }, 
+  handler: async (ctx, args) => {
+    if (args.search === "") {
+      return await ctx.db.query("videos").order("desc").collect();
+    }
+
+    const filenameSearch = await ctx.db
+      .query("videos")
+      .withSearchIndex("search_filename", (q) => q.search("filename", args.search))
+      .take(10);
+    
+    // if (filenameSearch.length > 0) {
+    return filenameSearch;
+    // }
+
+    // return await ctx.db
+    //   .query("videos")
+    //   .withSearchIndex("search_body", (q) => 
+    //     q.search("title" || "topics" || "hashtags", args.search), 
+    //   ).take(10)
+  },
+})
+
 export const createVideo = internalMutation({
   args: {
     twelvelabsId: v.string(),
-    section: v.string(),
+    filename: v.string(),
+    videoUrl: v.string(), 
+    thumbnailUrl: v.string(),
+    class: v.string(),
     title: v.string(),
     topics: v.array(v.string()),
     hashtags: v.array(v.string()),
@@ -60,13 +105,16 @@ export const createVideo = internalMutation({
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("videos", {
-      twelvelabsId: args.twelvelabsId,
-      section: args.section,
-      title: args.title,
-      topics: args.topics,
-      hashtags: args.hashtags,
-      summary: args.summary,
-      chapters: args.chapters,
+      twelvelabsId: args.twelvelabsId, 
+      filename: args.filename,
+      videoUrl: args.videoUrl,
+      thumbnailUrl: args.thumbnailUrl,
+      class: args.class,
+      title: args.title, 
+      topics: args.topics, 
+      hashtags: args.hashtags, 
+      summary: args.summary, 
+      chapters: args.chapters, 
       highlights: args.highlights,
     });
   },
@@ -75,7 +123,10 @@ export const createVideo = internalMutation({
 export const updateVideo = internalMutation({
   args: {
     twelvelabsId: v.string(),
-    section: v.string(),
+    filename: v.string(),
+    videoUrl: v.string(), 
+    thumbnailUrl: v.string(),
+    class: v.string(),
     title: v.string(),
     topics: v.array(v.string()),
     hashtags: v.array(v.string()),
@@ -110,12 +161,15 @@ export const updateVideo = internalMutation({
     }
 
     await ctx.db.patch(video._id, {
-      section: args.section,
-      title: args.title,
-      topics: args.topics,
-      hashtags: args.hashtags,
-      summary: args.summary,
-      chapters: args.chapters,
+      filename: args.filename,
+      videoUrl: args.videoUrl,
+      thumbnailUrl: args.thumbnailUrl,
+      class: args.class,
+      title: args.title, 
+      topics: args.topics, 
+      hashtags: args.hashtags, 
+      summary: args.summary, 
+      chapters: args.chapters, 
       highlights: args.highlights,
     });
   },
@@ -138,11 +192,27 @@ export const deleteVideo = internalMutation({
 });
 
 export const doSomeMagic = action({
-  args: { videoId: v.string() },
-  handler: async (ctx, { videoId }) => {
-    // const section = await ctx.runAction(api.twelve_labs.classifyVideo, {
-    //   videoId: videoId,
-    // });
+  args: { video: v.object({
+    videoId: v.string(),
+    filename: v.string(),
+    videoUrl: v.string(), 
+    thumbnailUrl: v.string(),
+  }) },
+  handler: async (ctx, { video }) => {
+    const videoId = video.videoId;
+    const classes = await ctx.runAction(api.twelve_labs.classifyVideo, {
+      videoId: videoId,
+    });
+    const classObj = JSON.parse(classes);
+    let myClass = "Other", myScore = 0;
+    if (classObj.data.length > 0){
+      for (let i = 0; i < classObj.data.classes.length; i++) {
+        if (classObj.data.classes[i].score > myScore) {
+          myClass = classObj.data.classes[i].name;
+          myScore = classObj.data.classes[i].score;
+        }
+      }
+    }
     const gist = await ctx.runAction(api.twelve_labs.generateGist, {
       videoId: videoId,
     });
@@ -161,7 +231,10 @@ export const doSomeMagic = action({
     if (existVideo) {
       await ctx.runMutation(internal.videos.updateVideo, {
         twelvelabsId: videoId,
-        section: "Can't find a better way to do this...",
+        filename: video.filename,
+        videoUrl: video.videoUrl, 
+        thumbnailUrl: video.thumbnailUrl,
+        class: myClass,
         title: JSON.parse(gist).title,
         topics: JSON.parse(gist).topics,
         hashtags: JSON.parse(gist).hashtags,
@@ -171,8 +244,11 @@ export const doSomeMagic = action({
       });
     } else {
       await ctx.runMutation(internal.videos.createVideo, {
-        twelvelabsId: videoId,
-        section: "Can't find a better way to do this...",
+        twelvelabsId: videoId, 
+        filename: video.filename,
+        videoUrl: video.videoUrl, 
+        thumbnailUrl: video.thumbnailUrl,
+        class: myClass,
         title: JSON.parse(gist).title,
         topics: JSON.parse(gist).topics,
         hashtags: JSON.parse(gist).hashtags,
