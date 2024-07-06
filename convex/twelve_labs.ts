@@ -2,13 +2,8 @@
 import { action } from "./_generated/server";
 import { v } from "convex/values";
 import axios from "axios";
-import {
-  HEADERS,
-  ENGINES,
-  BASE_URL,
-  PAGE_LIMIT,
-  CLASSES,
-} from "@/constants/index";
+import { HEADERS, ENGINES, BASE_URL, PAGE_LIMIT, CLASSES } from "@/constants/index";
+
 
 /* List indexes */
 export const getIndexes = action({
@@ -127,10 +122,12 @@ export const classifyVideo = action({
         url: `${BASE_URL}/classify`,
         headers: { ...HEADERS },
         data: {
-          video_ids: [videoId], // here
-          options: ["conversation", "text_in_video", "visual"],
+          video_ids: [ videoId ],
+          options: [ "conversation", "text_in_video", "visual" ],
           classes: CLASSES,
-        },
+          threshold: { "min_video_score": 1 },
+          show_detailed_score: true,
+        }
       });
       return JSON.stringify(response.data);
     } catch (error) {
