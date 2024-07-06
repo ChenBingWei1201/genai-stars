@@ -50,11 +50,17 @@ export const SECTION_CLASS_MAP: any = {
 
 export const CLASSES = [
   // Baseball
-  { name: "MLB", prompts: ["baseball", "MLB"] },
-  { name: "CPBL", prompts: ["baseball", "CPBL"] },
-  { name: "WBC", prompts: ["baseball", "WBC"] },
+  { name: "MLB", prompts: ["baseball", "MLB", "Major League Baseball"] },
+  {
+    name: "CPBL",
+    prompts: ["baseball", "CPBL", "Chinese Professional Baseball League"],
+  },
+  { name: "WBC", prompts: ["baseball", "WBC", "World Baseball Classic"] },
   // Basketball
-  { name: "NBA", prompts: ["basketball", "NBA"] },
+  {
+    name: "NBA",
+    prompts: ["basketball", "NBA", "National Basketball Association"],
+  },
   { name: "Olympic Basketball", prompts: ["basketball", "Olympic Basketball"] },
   {
     name: "FIBA Basketball World Cup",
@@ -62,17 +68,30 @@ export const CLASSES = [
   },
   // Football
   { name: "FIFA World Cup", prompts: ["football", "FIFA World Cup"] },
-  { name: "Premier League", prompts: ["football", "Premier League"] },
+  {
+    name: "Premier League",
+    prompts: ["football", "Premier League", "England"],
+  },
   { name: "UEFA EURO", prompts: ["football", "UEFA EURO"] },
   // Badminton
   { name: "Olympic Badminton", prompts: ["badminton", "Olympic Badminton"] },
   {
     name: "BWF World Championships",
-    prompts: ["badminton", "BWF World Championships"],
+    prompts: [
+      "badminton",
+      "BWF World Championships",
+      "World Badminton Championships",
+    ],
   },
   // Tennis
-  { name: "Wimbledon", prompts: ["tennis", "Wimbledon"] },
-  { name: "The US Open (Tennis)", prompts: ["tennis", "The US Open (Tennis)"] },
+  {
+    name: "Wimbledon",
+    prompts: ["tennis", "Wimbledon", "Wimbledon Championships"],
+  },
+  {
+    name: "The US Open (Tennis)",
+    prompts: ["tennis", "The US Open (Tennis)", "The US Open"],
+  },
 ];
 
 export const IMAGES: any = {

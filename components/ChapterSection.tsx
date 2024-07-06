@@ -15,7 +15,7 @@ function ChapterSection({
   chapters,
   url,
 }: {
-  chapters: ChapterProp[];
+  chapters?: ChapterProp[];
   url: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +41,7 @@ function ChapterSection({
         }`}
       >
         <ul className="w-11/12 mx-auto flex flex-col">
-          {chapters.map((chapter, index) => (
+          {chapters?.map((chapter, index) => (
             <li
               key={index}
               className="flex flex-row items-center mb-2 w-11/12 gap-2 justify-between"
@@ -53,8 +53,8 @@ function ChapterSection({
                 width="100%"
                 height="100%"
               />
-              <div className="flex flex-col w-7/12 mx-auto">
-                <span className="block text-gray-600 hover:underline cursor-pointer text-lg font-semibold">
+              <div className="flex flex-col w-8/12">
+                <span className="block w-full text-gray-600 hover:underline cursor-pointer text-14 font-semibold">
                   {chapter.chapter_title}
                 </span>
                 <span className="block text-orange-600 text-sm font-semibold">

@@ -12,67 +12,44 @@ import SummarySection from "@/components/SummarySection";
 import Tag from "@/components/Tag";
 import HighlightSection from "@/components/HighlightSection";
 import ChapterSection from "@/components/ChapterSection";
-import { chapters, highlights, summary, tags } from "@/constants/dummyData"; // replace
+// import { chapters, highlights, summary, tags } from "@/constants/dummyData"; // replace
 
 function VideoPage({ params }: { params: { videoId: string } }) {
   const router = useRouter();
   const video = useQuery(api.videos.getVideoById, {
     videoId: params.videoId,
   });
-  const findSimilarVideo = useAction(api.twelve_labs.findSimilarVideo);
-  // const getVideo = useAction(api.twelve_labs.getVideo); // replace
-  // const getVideos = useAction(api.twelve_labs.getVideos); // replace
-  // const [video, setVideo] = useState<any>(); // type
-  const [videoIds, setVideoIds] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const videoId = params.videoId.split(".")[0]; // replace
-  const indexId = params.videoId.split(".")[1]; // replace
-  // const videoId = params.videoId;
-  useEffect(() => {
-    // const fetchVideo = async () => {
-    //   try {
-    //     const response = await getVideo({
-    //     videoId: videoId,
-    //     indexId: indexId,
-    //     });
-    //     setVideo(JSON.parse(response!));
-    //     const response = await getVideoById({ videoId: videoId });
-    //     setVideo(response!);
-    //   } catch (error) {
-    //     console.log(error);
-    //     router.push("/not-found");
-    //   }
-    // };
+  // const findSimilarVideo = useAction(api.twelve_labs.findSimilarVideo);
+  // const [similarVideos, setSimilarVideos] = useState<string[]>([]);
+  // const [loading, setLoading] = useState(true);
 
-    const fetchVideos = async () => {
-      const prompt = video?.hashtags.join() || "";
-      try {
-        // const response = await getVideos({ indexId: indexId }); // replace
-        const response = await findSimilarVideo({
-          indexId: process.env.INDEX_ID as string,
-          prompt: prompt,
-        });
-        const data = JSON.parse(response!)?.data.map((video: any) => {
-          return video._id;
-        });
-        setVideoIds(data);
-      } catch (error) {
-        console.log(error);
-        router.push("/not-found");
-      }
-    };
+  const videoId = params.videoId;
+  // useEffect(() => {
+  //   const fetchVideos = async () => {
+  //     try {
+  //       const prompt = video?.hashtags.join() || " ";
+  //       const response = await findSimilarVideo({
+  //         indexId: process.env.INDEX_ID as string,
+  //         prompt: prompt,
+  //       });
+  //       const data = JSON.parse(response!)?.data;
+  //       setSimilarVideos(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //       // router.push("/not-found");
+  //     }
+  //   };
 
-    // fetchVideo();
-    fetchVideos();
-    setLoading(false);
-  }, [setVideoIds, setLoading, loading]);
+  //   fetchVideos();
+  //   setLoading(false);
+  // }, [setSimilarVideos, setLoading, video, findSimilarVideo]);
 
   return (
     <>
       <div className="bg-white">
-        {loading ? (
+        {/* {loading ? (
           <LoaderSpiner />
-        ) : (
+        ) : ( */}
           <>
             <div className="w-11/12 mx-auto">
               <button
@@ -83,7 +60,7 @@ function VideoPage({ params }: { params: { videoId: string } }) {
               </button>
             </div>
             <div className="flex flex-row gap-10 justify-between sm:flex-col md:flex-col bg:flex-row xl:flex-row ">
-              <div className="flex flex-col w-8/12 ml-20 mt-5 border-transparent ">
+              <div className="flex flex-col w-8/12 ml-10 mt-5 border-transparent ">
                 <div className="video-wrapper">
                   <ReactPlayer
                     key={videoId}
@@ -97,9 +74,7 @@ function VideoPage({ params }: { params: { videoId: string } }) {
                 {/* <h1 className="text-24 font-bold ml-1">{`${video?.metadata.filename.split(".mp4")[0]}`}</h1> */}
                 <h1 className="text-24 font-bold ml-1">{`${video?.filename.split(".mp4")[0]}`}</h1>
                 <div className="flex mt-2 gap-2">
-                  {tags.map((tag: string) => (
-                    <Tag tag={tag} />
-                  ))}
+                  {video?.hashtags.slice(0, 5).map((tag: string) => <Tag tag={tag} />)}
                 </div>
                 {/* <SummarySection summary={summary} /> */}
                 <SummarySection summary={video?.summary!} />
@@ -132,16 +107,16 @@ function VideoPage({ params }: { params: { videoId: string } }) {
                   chapters={chapters}
                   url={video?.source?.url || video?.hls?.video_url}
                 />
-                <RecommendVideoList videoIds={videoIds} indexId={classId} /> */}
+                <RecommendVideoList similarVideos={similarVideos} indexId={classId} /> */}
                 <ChapterSection
                   chapters={video?.chapters!}
                   url={video?.videoUrl!}
                 />
-                <RecommendVideoList videoIds={videoIds} />
+                {/* <RecommendVideoList similarVideos={similarVideos!} /> */}
               </div>
             </div>
           </>
-        )}
+        {/* )} */}
       </div>
     </>
   );

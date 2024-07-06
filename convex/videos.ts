@@ -45,7 +45,6 @@ export const getVideoByClass = query({
       .query("videos")
       .filter((q) => q.eq(q.field("class"), args.class))
       .collect();
-
     return video;
   },
 });
@@ -205,14 +204,15 @@ export const doSomeMagic = action({
     const classes = await ctx.runAction(api.twelve_labs.classifyVideo, {
       videoId: videoId,
     });
-    const classObj = JSON.parse(classes);
+    const classObj = JSON.parse(classes!);
     let myClass = "Other",
       myScore = 0;
-    if (classObj.data.length > 0) {
-      for (let i = 0; i < classObj.data.classes.length; i++) {
-        if (classObj.data.classes[i].score > myScore) {
-          myClass = classObj.data.classes[i].name;
-          myScore = classObj.data.classes[i].score;
+    // console.log(classObj?.data[0]);
+    if (classObj?.data?.length > 0) {
+      for (let i = 0; i < classObj?.data[0]?.classes?.length; i++) {
+        if (classObj?.data[0]?.classes[i].score > myScore) {
+          myClass = classObj?.data[0]?.classes[i].name;
+          myScore = classObj?.data[0]?.classes[i].score;
         }
       }
     }
@@ -235,7 +235,7 @@ export const doSomeMagic = action({
       await ctx.runMutation(internal.videos.updateVideo, {
         twelvelabsId: videoId,
         filename: videoObj?.metadata.filename,
-        videoUrl: videoObj?.source?.url || videoObj?.hls?.video_url, 
+        videoUrl: videoObj?.source?.url || videoObj?.hls?.video_url,
         thumbnailUrl: videoObj?.hls.thumbnail_urls[0],
         class: myClass,
         title: JSON.parse(gist).title,
@@ -247,9 +247,9 @@ export const doSomeMagic = action({
       });
     } else {
       await ctx.runMutation(internal.videos.createVideo, {
-        twelvelabsId: videoId, 
+        twelvelabsId: videoId,
         filename: videoObj?.metadata.filename,
-        videoUrl: videoObj?.source?.url || videoObj?.hls?.video_url, 
+        videoUrl: videoObj?.source?.url || videoObj?.hls?.video_url,
         thumbnailUrl: videoObj?.hls.thumbnail_urls[0],
         class: myClass,
         title: JSON.parse(gist).title,

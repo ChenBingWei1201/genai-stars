@@ -8,19 +8,14 @@ function SummarySection({ summary }: { summary: string }) {
   const [showReadMoreButton, setShowReadMoreButton] = useState(false);
   const ref = useRef<any>(null);
 
-  const video = {
-    summary:
-      "Clerk is an authentication platform providing login via passwords, social identity providers, one-time email or SMS access codes, and multi-factor authentication and basic user management. Example: Convex Authentication with Clerk. If you're using Next.js see the Next.js setup guide.Clerk is an authentication platform providing login via passwords, social identity providers, one-time email or SMS access codes, and multi-factor authentication and basic user management. Example: Convex Authentication with Clerk. If you're using Next.js see the Next.js setup guide.",
-  };
-
   useEffect(() => {
     if (ref.current) {
-      console.log(ref.current.scrollHeight, ref.current.clientHeight);
+      // console.log(ref.current.scrollHeight, ref.current.clientHeight);
       setShowReadMoreButton(
         ref.current.scrollHeight !== ref.current.clientHeight,
       );
     }
-  }, []);
+  }, [summary, ref]);
 
   return (
     <div className="my-3">
