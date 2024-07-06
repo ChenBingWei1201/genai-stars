@@ -10,7 +10,10 @@ export default defineSchema({
   }),
   videos: defineTable({
     twelvelabsId: v.string(),
-    section: v.string(),
+    filename: v.string(),
+    videoUrl: v.string(), 
+    thumbnailUrl: v.string(),
+    class: v.string(),
     title: v.string(),
     topics: v.array(v.string()),
     hashtags: v.array(v.string()),
@@ -29,5 +32,6 @@ export default defineSchema({
       highlight_summary: v.string(),
       highlight_index: v.number(),
     })),
-  }),
+  })
+    .searchIndex("search_filename", { searchField: "filename"}),
 });

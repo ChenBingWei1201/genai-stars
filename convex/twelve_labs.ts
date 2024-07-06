@@ -1,7 +1,7 @@
 import { action } from "./_generated/server";
 import { v } from "convex/values";
 import axios from "axios";
-import { HEADERS, ENGINES, BASE_URL, PAGE_LIMIT } from "@/constants/index";
+import { HEADERS, ENGINES, BASE_URL, PAGE_LIMIT, CLASSES } from "@/constants/index";
 
 // index
 export const getIndexes = action({
@@ -100,10 +100,9 @@ export const classifyVideo = action({
         data: {
           video_ids: [ videoId ],
           options: [ "conversation", "text_in_video", "visual" ],
-          classes: [
-            { name: "clash royale", prompts: ["clash royale"] }, 
-            { name: "blue archive", prompts: ["blue archive"] },
-          ]
+          classes: CLASSES,
+          threshold: { "min_video_score": 1 },
+          show_detailed_score: true,
         }
       });
       return JSON.stringify(response.data);

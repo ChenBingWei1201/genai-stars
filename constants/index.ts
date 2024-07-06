@@ -20,7 +20,7 @@ export const ENGINES = [
   },
 ];
 
-export const PAGE_LIMIT = 1;
+export const PAGE_LIMIT = 10;
 
 export const AD = [
   {
@@ -47,4 +47,25 @@ export const AD = [
     name: "Demo 4",
     totalPodcasts: 4,
   },
+];
+
+export const CLASSES = [
+  // Baseball
+  { name: "MLB", prompts: ["baseball", "MLB"] },
+  { name: "CPBL", prompts: ["baseball", "CPBL"] },
+  { name: "WBC", prompts: ["baseball", "WBC"] },
+  // Basketball
+  { name: "NBA", prompts: ["basketball", "NBA"] },
+  { name: "Olympic Basketball", prompts: ["basketball", "Olympic Basketball"] },
+  { name: "FIBA Basketball World Cup", prompts: ["basketball", "FIBA Basketball World Cup"]},
+  // Football
+  { name: "FIFA World Cup", prompts: ["football", "FIFA World Cup"] },
+  { name: "Premier League", prompts: ["football", "Premier League"] },
+  { name: "UEFA EURO", prompts: ["football", "UEFA EURO"] },
+  // Badminton
+  { name: "Olympic Badminton", prompts: ["badminton", "Olympic Badminton"] },
+  { name: "BWF World Championships", prompts: ["badminton", "BWF World Championships"] },
+  // Tennis
+  { name: "Wimbledon", prompts: ["tennis", "Wimbledon"] },
+  { name: "The US Open (Tennis)", prompts: ["tennis", "The US Open (Tennis)"] },
 ];
