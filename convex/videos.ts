@@ -231,7 +231,7 @@ export const doSomeMagic = action({
       await ctx.runMutation(internal.videos.updateVideo, {
         twelvelabsId: videoId,
         filename: videoObj.metadata.filename,
-        videoUrl: videoObj.hls.video_url, 
+        videoUrl: videoObj.source?.url || videoObj.hls.video_url, 
         thumbnailUrl: videoObj.hls.thumbnail_urls[0],
         class: myClass,
         title: JSON.parse(gist).title,
