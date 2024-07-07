@@ -36,8 +36,8 @@ function ChapterSection({
         </button>
       </div>
       <div
-        className={`transition-all duration-600 ease-in-out ${
-          isOpen ? "max-h-max" : "max-h-0 overflow-hidden"
+        className={`transition-all duration-500 ease-in-out ${
+          isOpen ? "max-h-96 overflow-y-auto" : "max-h-0 overflow-hidden"
         }`}
       >
         <ul className="w-11/12 mx-auto flex flex-col">

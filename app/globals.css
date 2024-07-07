@@ -165,3 +165,16 @@
   width: 90%;
   height: 90%;
 }
+
+.confidence {
+  display: inline-flex;
+  padding: 0.125rem 0.25rem;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.resultDescription {
+  font-size: 0.8rem;
+  font-family: "Figtree", sans-serif;
+  margin-bottom: 0.25rem;
+}

@@ -23,6 +23,7 @@ This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a hre
 - Convex
 - Clerk
 - Twelve Labs
+- Disqus
 
 ## <a name="features">🔋 Features</a>
 
@@ -77,6 +78,7 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL="/sign-up"
 # Twelve Labs
 TWELVE_LABS_API_KEY=
 TWELVE_LABS_WEBHOOK_SECRET=
+NEXT_PUBLIC_INDEX_ID=
 ```
 
 Replace the placeholder values with your actual Convex & Clerk credentials and Twelve Labs API key. You can obtain these credentials by signing up on the [Convex](https://www.convex.dev/), [Clerk](https://clerk.com/), and [Twelve Labs](https://www.twelvelabs.io/) websites.

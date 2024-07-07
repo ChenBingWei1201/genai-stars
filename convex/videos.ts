@@ -1,6 +1,11 @@
 import { ConvexError, v } from "convex/values";
 
-import { internalMutation, query, action } from "./_generated/server";
+import {
+  internalMutation,
+  query,
+  action,
+  internalQuery,
+} from "./_generated/server";
 import { api, internal } from "./_generated/api";
 
 export const checkExistVideo = query({
@@ -49,6 +54,21 @@ export const getVideoByClass = query({
   },
 });
 
+export const getSimilarVideoById = internalQuery({
+  args: { videoId: v.string() },
+  handler: async (ctx, args) => {
+    const video = await ctx.db
+      .query("videos")
+      .filter((q) => q.eq(q.field("twelvelabsId"), args.videoId))
+      .unique();
+
+    if (!video) {
+      throw new ConvexError("Video not found");
+    }
+    return video;
+  },
+});
+
 export const getVideoBySearch = query({
   args: { search: v.string() },
   handler: async (ctx, args) => {
@@ -63,15 +83,7 @@ export const getVideoBySearch = query({
       )
       .take(10);
 
-    // if (filenameSearch.length > 0) {
     return filenameSearch;
-    // }
-
-    // return await ctx.db
-    //   .query("videos")
-    //   .withSearchIndex("search_body", (q) =>
-    //     q.search("title" || "topics" || "hashtags", args.search),
-    //   ).take(10)
   },
 });
 
@@ -207,7 +219,6 @@ export const doSomeMagic = action({
     const classObj = JSON.parse(classes!);
     let myClass = "Other",
       myScore = 0;
-    // console.log(classObj?.data[0]);
     if (classObj?.data?.length > 0) {
       for (let i = 0; i < classObj?.data[0]?.classes?.length; i++) {
         if (classObj?.data[0]?.classes[i].score > myScore) {
