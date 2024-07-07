@@ -3,18 +3,13 @@
 import React, { useCallback } from "react";
 import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
-import Autoplay from "embla-carousel-autoplay";
+import Autoplay from "embla-carousel-autoplay"
 import useEmblaCarousel from "embla-carousel-react";
-// import { CarouselProps } from "@/types";
-import { useRouter } from "next/navigation";
 import LoaderSpiner from "./LoaderSpinner";
 
 type TopPodcastersProps = {
   id: string;
-  // _creationTime: number;
-  // email: string;
   imageUrl: any;
-  // clerkId: string;
   name: string;
   totalPodcasts: number;
 };
@@ -23,7 +18,6 @@ type CarouselProps = {
   ads: TopPodcastersProps[];
 };
 const EmblaCarousel = ({ ads }: CarouselProps) => {
-  const router = useRouter();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
@@ -44,8 +38,7 @@ const EmblaCarousel = ({ ads }: CarouselProps) => {
     onNavButtonClick,
   );
 
-  const slides = ads; // &&
-  // ads?.filter((item: TopPodcastersProps) => item.totalPodcasts > 0);
+  const slides = ads;
   if (!slides) return <LoaderSpiner />;
   return (
     <section
@@ -57,7 +50,6 @@ const EmblaCarousel = ({ ads }: CarouselProps) => {
           <figure
             key={item.id}
             className="carousel_box"
-            // onClick={() => router.push(`/class/${item.id}`)}
           >
             <img
               src={item.imageUrl}

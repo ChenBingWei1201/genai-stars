@@ -2,25 +2,13 @@
 
 import { useRouter } from "next/navigation";
 
-// type IndexFolderProps = {
-//   indexId: string;
-//   title: string;
-//   imgUrl: string;
-// };
 type ClassFolderProps = {
   classId: string;
   title: string;
   imgUrl: string;
 };
 function ClassFolder({ classId, title, imgUrl }: ClassFolderProps) {
-  // function ClassFolder({ indexId, title, imgUrl }: IndexFolderProps) {
   const router = useRouter();
-
-  // const handleView = () => {
-  //   router.push(`/class/${classId}`, {
-  //     scroll: true,
-  //   });
-  // };
 
   const handleView = () => {
     router.push(`/class/${classId}`, {

@@ -6,7 +6,6 @@ import EmptyState from "@/components/EmptyState";
 import LoaderSpiner from "@/components/LoaderSpinner";
 import Searchbar from "@/components/Searchbar";
 import { Row, Col } from "antd";
-// import { videoData } from "@/constants/dummyData"; // replace
 import { useRouter } from "next/navigation";
 
 function Discover({

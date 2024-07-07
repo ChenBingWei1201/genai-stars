@@ -9,6 +9,7 @@ import {
   PAGE_LIMIT,
   CLASSES,
 } from "@/constants/index";
+import { internal } from "./_generated/api";
 
 /* List indexes */
 export const getIndexes = action({
@@ -73,7 +74,6 @@ export const getVideo = action({
         url: `${BASE_URL}/indexes/${indexId}/videos/${videoId}`,
         headers: { ...HEADERS },
       });
-      // console.log("videoId", videoId);
       return JSON.stringify(response.data);
     } catch (error) {
       throw new Error(`Error: ${error}`);
@@ -121,7 +121,6 @@ export const classifyVideo = action({
   args: { videoId: v.string() },
   handler: async (_ctx, { videoId }) => {
     try {
-      // Todo: Somehow make this function work
       const response = await axios.request({
         method: "POST",
         url: `${BASE_URL}/classify`,
@@ -143,7 +142,7 @@ export const classifyVideo = action({
 
 export const findSimilarVideo = action({
   args: { indexId: v.string(), prompt: v.string() },
-  handler: async (_ctx, { indexId, prompt }) => {
+  handler: async (ctx, { indexId, prompt }) => {
     try {
       const data = {
         index_id: indexId,
@@ -161,7 +160,29 @@ export const findSimilarVideo = action({
         headers: { ...HEADERS },
         data: data,
       });
-      return JSON.stringify(response.data);
+      const clips = response.data.data[0].clips;
+      const similarVideos = await Promise.all(
+        clips.map(async (video: any) => {
+          const videoInfo = await ctx.runQuery(
+            internal.videos.getSimilarVideoById,
+            {
+              videoId: video.video_id,
+            },
+          );
+          return {
+            filename: videoInfo.filename,
+            videoUrl: videoInfo.videoUrl,
+            score: video.score,
+            start: video.start,
+            end: video.end,
+            twelvelabsId: video.video_id,
+            confidence: video.confidence,
+            thumbnailUrl: video.thumbnail_url,
+          };
+        }),
+      );
+
+      return similarVideos;
     } catch (error) {
       throw new Error(`Error: ${error}`);
     }

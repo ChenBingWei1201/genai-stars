@@ -1,4 +1,3 @@
-// import { EmptyStateProps } from "@/types";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -18,16 +17,24 @@ function EmptyState({
 }: EmptyStateProps) {
   return (
     <section className="flex-center size-full flex-col">
-      <Image
-        src="/icons/emptyState.svg"
-        width={400}
-        height={400}
-        alt="empty state"
-      />
+      {title !== "Comming Soon" && (
+        <Image
+          src="/icons/emptyState.svg"
+          width={400}
+          height={400}
+          alt="empty state"
+        />
+      )}
       <div className="flex-center w-full max-w-[254px] flex-col gap-">
-        <h1 className="text-32 text-center font-bold text-black mb-5">
-          {title}
-        </h1>
+        {title !== "Comming Soon" ? (
+          <h1 className="text-32 text-center font-bold text-black mb-5">
+            {title}
+          </h1>
+        ) : (
+          <h1 className="w-full text-32 text-center font-bold text-black mb-5 border-2 border-black p-2">
+            {title}
+          </h1>
+        )}
         {search && (
           <p className="text-16 text-center font-medium text-white-2">
             Try adjusting your search to find what you are looking for
@@ -42,6 +49,7 @@ function EmptyState({
                 height={20}
                 alt="discover"
               />
+
               <h1 className="text-16 font-extrabold text-black">
                 {buttonText}
               </h1>
