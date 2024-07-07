@@ -56,7 +56,7 @@ function Discover({
                           className="border-3 rounded-xl border-transparent"
                         />
                         <h1 className="text-16 font-bold ml-1 my-1">
-                          {video.filename}
+                          {video.filename.replace(".mp4", "")}
                         </h1>
                       </div>
                     </Col>
