@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useCallback } from "react";
-import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
+import type { EmblaOptionsType, EmblaCarouselType, EmblaPluginType } from "embla-carousel";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
-import Autoplay from "embla-carousel-autoplay"
+import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import LoaderSpiner from "./LoaderSpinner";
 
@@ -18,8 +18,7 @@ type CarouselProps = {
   ads: TopPodcastersProps[];
 };
 const EmblaCarousel = ({ ads }: CarouselProps) => {
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay() as any]);
 
   const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
     const autoplay = emblaApi?.plugins()?.autoplay;
@@ -34,7 +33,7 @@ const EmblaCarousel = ({ ads }: CarouselProps) => {
   }, []);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
-    emblaApi,
+    emblaApi as any,
     onNavButtonClick,
   );
 
@@ -47,10 +46,7 @@ const EmblaCarousel = ({ ads }: CarouselProps) => {
     >
       <div className="flex">
         {slides.slice(0, 5).map((item) => (
-          <figure
-            key={item.id}
-            className="carousel_box"
-          >
+          <figure key={item.id} className="carousel_box">
             <img
               src={item.imageUrl}
               alt="card"
