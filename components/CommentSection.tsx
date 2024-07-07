@@ -13,7 +13,7 @@ function CommentSection({ id, title }: CommentSectionProps) {
   const pageUrl =
     typeof window !== "undefined" && window.location.hostname === "localhost"
       ? `http://localhost:3000/video/${id}`
-      : `https://genai-stars.com/video/${id}`;
+      : `https://genai-stars.vercel.app/video/${id}`;
 
   return (
     <LazyLoad placeholder={<LoaderSpinner />}>
