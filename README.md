@@ -1,8 +1,9 @@
-<h1 align="center">GenAI Stars Hackthon</h1>
+<h1 align="center">GenAI Stars Hackthon: GenAI Sports+</h1>
 
-<p align="center">
-This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a href="https://genaistars.org.tw/" target="_blank">GenAI Stars Hackthon</a>.
-</p>
+![Website Deploy](https://deploy-badge.vercel.app/?url=https://genai-stars.vercel.app/&name=genai-stars)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+This web app uses Twleve Labs API to solve the ELTA Sports prize in the <a href="https://genaistars.org.tw/" target="_blank">GenAI Stars Hackathon</a>. Feel free to give us a star (❁´◡`❁). Your support is our energy to create better projects! Live demo: https://genai-stars.vercel.app
 
 ## 📋 <a name="table">Table of Contents</a>
 
@@ -10,9 +11,13 @@ This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a hre
 2. ⚙️ [Tech Stack](#tech-stack)
 3. 🔋 [Features](#features)
 4. 🤸 [Quick Start](#quick-start)
-5. 🚀 [Deployment](#more)
+5. 🚀 [Deploy](#deploy)
+6. 📚 [Reference](#reference)
+7. ⚠️ [Disclaimer](#disclaimer)
 
 ## <a name="introduction">🤖 Introduction</a>
+
+![flow](/public/images/flow.png)
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -20,6 +25,7 @@ This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a hre
 - TypeScript
 - Tailwind CSS
 - ShadCN/UI
+- Ant Design
 - Convex
 - Clerk
 - Twelve Labs
@@ -27,7 +33,17 @@ This is a web app using Twleve Labs API to solve the ELTA Sports prize in <a hre
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Robust Authentication**: Secure and reliable user login and registration system.
+👉 **Robust Authentication**: Secure and reliable user login and registration system with Convex and Clerk.
+
+👉 **Video with AI**: Use Twelve Labs two models: Marengo2.6 and Pegasus1.1 to generate videos' hastags, summary, highlights, and chapters and classify with predefined classes and store these data into Convex automatically with Twelve Labs Webhook. User can watch not only the main video but also its highlights, chapters instantly.
+
+👉 **Smartly Videos Recommendation**: Use Twelve Labs API "search" to search videos with hashtags to recommend similar videos.
+
+👉 **Comment Section**: Integrate Disqus into the web app that store comment in Disqus db.
+
+👉 **Discover Page**: Dedicated page for users to explore videos.
+
+👉 **Responsive Design**: Fully functional and visually appealing across all devices and screen sizes.
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
@@ -37,7 +53,7 @@ Follow these steps to set up the project locally on your machine.
 Make sure you have the following installed on your machine:
 
 - [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
+- [Node.js](https://nodejs.org/en) (node version higher than v20._._)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
 ### 1. Cloning the Repository
@@ -82,6 +98,7 @@ NEXT_PUBLIC_INDEX_ID=
 ```
 
 Replace the placeholder values with your actual Convex & Clerk credentials and Twelve Labs API key. You can obtain these credentials by signing up on the [Convex](https://www.convex.dev/), [Clerk](https://clerk.com/), and [Twelve Labs](https://www.twelvelabs.io/) websites.
+** Remeber to paste clerk and twelve labs enviroment variables on convex project setting page**
 
 ### 3. Running the project
 
@@ -91,7 +108,18 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## <a name="deployment">🚀 Deployment </a>
+## <a name="deploy">🚀 Deploy </a>
 
 Deploy on Vercel:
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## <a name="reference">📚 Reference</a>
+
+1. [Twelve Labs API docs](https://docs.twelvelabs.io/reference/api-reference)
+2. [Convex docs](https://docs.convex.dev/quickstart/nextjs)
+3. [Clerk docs](https://clerk.com/docs/quickstarts/nextjs)
+4. [Disqus](https://disqus.com/)
+
+## <a name="disclaimer">⚠️ Disclaimer</a>
+
+**This project is for hackathon purposes only. Please mark the origin clearly if you want to cite the project.**

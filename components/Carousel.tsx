@@ -1,7 +1,11 @@
 "use client";
 
 import React, { useCallback } from "react";
-import type { EmblaOptionsType, EmblaCarouselType, EmblaPluginType } from "embla-carousel";
+import type {
+  EmblaOptionsType,
+  EmblaCarouselType,
+  EmblaPluginType,
+} from "embla-carousel";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
@@ -18,7 +22,9 @@ type CarouselProps = {
   ads: TopPodcastersProps[];
 };
 const EmblaCarousel = ({ ads }: CarouselProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay() as any]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay() as any,
+  ]);
 
   const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
     const autoplay = emblaApi?.plugins()?.autoplay;

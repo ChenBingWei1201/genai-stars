@@ -25,7 +25,7 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const prompt = video?.hashtags.join(" ") || " ";
+        const prompt = video?.hashtags[2] || " "; // can be better
         const response = await findSimilarVideo({
           indexId: process.env.NEXT_PUBLIC_INDEX_ID!,
           prompt: prompt,
