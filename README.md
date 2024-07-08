@@ -3,7 +3,7 @@
 ![Website Deploy](https://deploy-badge.vercel.app/?url=https://genai-stars.vercel.app/&name=genai-stars)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-This web app uses Twleve Labs API to solve the ELTA Sports prize in the <a href="https://genaistars.org.tw/" target="_blank">GenAI Stars Hackathon</a>. Feel free to give us a star (❁´◡`❁). Your support is our energy to create better projects! Live demo: https://genai-stars.vercel.app
+This web app uses Twleve Labs API to solve the ELTA Sports prize in the <a href="https://genaistars.org.tw/" target="_blank">GenAI Stars Hackathon</a>. Feel free to give us a star (❁´◡`❁). Your support is our energy to create better projects! Live demo: the link will be provided once the hackathon results are announced.
 
 ## 📋 <a name="table">Table of Contents</a>
 
