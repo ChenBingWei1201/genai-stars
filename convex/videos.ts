@@ -209,7 +209,7 @@ export const doSomeMagic = action({
   args: { videoId: v.string() },
   handler: async (ctx, { videoId }) => {
     const videoInfo = await ctx.runAction(api.twelve_labs.getVideo, {
-      indexId: process.env.INDEX_ID as string,
+      indexId: process.env.NEXT_PUBLIC_INDEX_ID!,
       videoId: videoId,
     });
     const videoObj = JSON.parse(videoInfo!);
