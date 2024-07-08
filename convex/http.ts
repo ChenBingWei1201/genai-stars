@@ -58,7 +58,7 @@ const handleTwelveLabsWebhook = httpAction(async (ctx, request) => {
       }),
     );
     await ctx.runAction(api.videos.doSomeMagic, {
-      videoId: newVideo.videoId,
+      videoId: newVideo.video_id,
     });
   }
   return new Response(null, {
