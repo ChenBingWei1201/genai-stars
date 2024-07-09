@@ -81,9 +81,27 @@ export const getVideoBySearch = query({
       .withSearchIndex("search_filename", (q) =>
         q.search("filename", args.search),
       )
-      .take(10);
+      .take(50);
 
-    return filenameSearch;
+    if (filenameSearch.length > 0) {
+      return filenameSearch;
+    }
+
+    const titleSearch = await ctx.db
+      .query("videos")
+      .withSearchIndex("search_title", (q) => q.search("title", args.search))
+      .take(50);
+
+    if (titleSearch.length > 0) {
+      return titleSearch;
+    }
+
+    return await ctx.db
+      .query("videos")
+      .withSearchIndex("search_summary", (q) =>
+        q.search("summary" || "title", args.search),
+      )
+      .take(50);
   },
 });
 

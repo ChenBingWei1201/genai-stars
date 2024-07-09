@@ -3,11 +3,7 @@
 import { DiscussionEmbed } from "disqus-react";
 import LazyLoad from "react-lazyload";
 import LoaderSpinner from "./LoaderSpinner";
-
-type CommentSectionProps = {
-  id: string;
-  title: string;
-};
+import { type CommentSectionProps } from "@/types";
 
 function CommentSection({ id, title }: CommentSectionProps) {
   const pageUrl =

@@ -10,6 +10,7 @@ import {
   CLASSES,
 } from "@/constants/index";
 import { internal } from "./_generated/api";
+import { ClipType, SimilarVideoType } from "@/types/index";
 
 /* List indexes */
 export const getIndexes = action({
@@ -140,6 +141,7 @@ export const classifyVideo = action({
   },
 });
 
+/* Search */
 export const findSimilarVideo = action({
   args: { indexId: v.string(), prompt: v.string() },
   handler: async (ctx, { indexId, prompt }) => {
@@ -150,7 +152,7 @@ export const findSimilarVideo = action({
         query: prompt,
         group_by: "video",
         sort_option: "clip_count",
-        threshold: "high",
+        threshold: "medium",
         adjust_confidence_level: 1,
         page_limit: PAGE_LIMIT,
       };
@@ -160,16 +162,16 @@ export const findSimilarVideo = action({
         headers: { ...HEADERS },
         data: data,
       });
-      const clips = response.data.data[0].clips;
-      const similarVideos = await Promise.all(
-        clips.map(async (video: any) => {
+      const clips: ClipType[] = response.data.data[0].clips;
+      const similarVideos: SimilarVideoType[] = await Promise.all(
+        clips.map(async (video: ClipType) => {
           const videoInfo = await ctx.runQuery(
             internal.videos.getSimilarVideoById,
             {
               videoId: video.video_id,
             },
           );
-          return {
+          const similarVideo: SimilarVideoType = {
             filename: videoInfo.filename,
             videoUrl: videoInfo.videoUrl,
             score: video.score,
@@ -179,6 +181,7 @@ export const findSimilarVideo = action({
             confidence: video.confidence,
             thumbnailUrl: video.thumbnail_url,
           };
+          return similarVideo;
         }),
       );
 

@@ -1,19 +1,20 @@
 "use client";
 
-import { Col, Row } from "antd";
+import { useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
-
-type VideoListProps = {
-  videos: any[];
-};
+import { Col, Row } from "antd";
+import { VideoListProps } from "@/types";
 
 function VideoList({ videos }: VideoListProps) {
   const router = useRouter();
 
   const numVideos = videos?.length;
-  const handleClick = (videoId: string) => {
-    router.push(`/video/${videoId}`);
-  };
+  const handleClick = useCallback(
+    (videoId: string) => {
+      router.push(`/video/${videoId}`);
+    },
+    [router],
+  );
 
   return (
     <>
@@ -39,6 +40,7 @@ function VideoList({ videos }: VideoListProps) {
                       src={video.thumbnailUrl}
                       alt={title}
                       className="border-3 rounded-xl border-transparent"
+                      loading="lazy"
                     />
                     <h1 className="text-16 font-bold ml-1 my-1">{title}</h1>
                   </div>
@@ -52,4 +54,4 @@ function VideoList({ videos }: VideoListProps) {
   );
 }
 
-export default VideoList;
+export default memo(VideoList);

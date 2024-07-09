@@ -17,7 +17,17 @@ This web app uses Twleve Labs API to solve the ELTA Sports prize in the <a href=
 
 ## <a name="introduction">🤖 Introduction</a>
 
+### Our Idea
+
 ![flow](/public/images/flow.png)
+
+### Twelve Labs' Advantages ([ref](https://docs.twelvelabs.io/docs/introduction))
+
+![advantages](https://twelvelabs-docs-assets.s3.us-west-2.amazonaws.com/v1.2/img/png/our-multimodal-approach.png)
+
+### Twelve Labs' Architecture Overview ([ref](https://docs.twelvelabs.io/docs/platform-overview))
+
+![architecture overview](https://twelvelabs-docs-assets.s3.us-west-2.amazonaws.com/v1.2/img/png/architecture-overview.png)
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -98,7 +108,7 @@ NEXT_PUBLIC_INDEX_ID=
 ```
 
 Replace the placeholder values with your actual Convex & Clerk credentials and Twelve Labs API key. You can obtain these credentials by signing up on the [Convex](https://www.convex.dev/), [Clerk](https://clerk.com/), and [Twelve Labs](https://www.twelvelabs.io/) websites.
-** Remeber to paste clerk and twelve labs enviroment variables on convex project setting page**
+**Remeber to paste clerk and twelve labs enviroment variables on convex project setting page**
 
 ### 3. Running the project
 
@@ -119,6 +129,10 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 2. [Convex docs](https://docs.convex.dev/quickstart/nextjs)
 3. [Clerk docs](https://clerk.com/docs/quickstarts/nextjs)
 4. [Disqus](https://disqus.com/)
+5. [podcastr](https://youtu.be/zfAb95tJvZQ?feature=shared)
+6. [who-talk-about-us](https://github.com/mrnkim/Who-Talked-About-Us)
+7. [summarize-youtube-video](https://github.com/mrnkim/summarize-youtube-video)
+8. [file-drive](https://github.com/webdevcody/file-drive)
 
 ## <a name="disclaimer">⚠️ Disclaimer</a>
 

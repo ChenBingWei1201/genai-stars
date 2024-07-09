@@ -1,3 +1,11 @@
+import type {
+  AdType,
+  IconType,
+  ImagesType,
+  SectionClassMapType,
+  SectionIdsType,
+} from "@/types";
+
 // base url
 export const BASE_URL = "https://api.twelvelabs.io/v1.2";
 
@@ -31,7 +39,7 @@ export const SECTIONS = [
   "Tennis",
 ];
 
-export const SECTION_IDS: any = {
+export const SECTION_IDS: SectionIdsType = {
   Home: "Home",
   Baseball: "MLB.CPBL.WBC",
   Basketball: "NBA.Olympic Basketball.FIBA Basketball World Cup",
@@ -40,7 +48,7 @@ export const SECTION_IDS: any = {
   Tennis: "Wimbledon.The US Open (Tennis)",
 };
 
-export const SECTION_CLASS_MAP: any = {
+export const SECTION_CLASS_MAP: SectionClassMapType = {
   Baseball: ["MLB", "CPBL", "WBC"],
   Basketball: ["NBA", "Olympic Basketball", "FIBA Basketball World Cup"],
   Football: ["FIFA World Cup", "Premier League", "UEFA EURO"],
@@ -94,7 +102,7 @@ export const CLASSES = [
   },
 ];
 
-export const IMAGES: any = {
+export const IMAGES: ImagesType = {
   MLB: "mlb",
   CPBL: "cpbl",
   WBC: "wbc",
@@ -110,29 +118,48 @@ export const IMAGES: any = {
   "The US Open (Tennis)": "the-us-open-tennis",
 };
 
-export const AD = [
+export const AD: AdType[] = [
   {
     id: "1",
     imageUrl: "/images/bg-demo-1.png",
     name: "Demo 1",
-    totalPodcasts: 1,
   },
   {
     id: "2",
     imageUrl: "/images/bg-demo-2.png",
     name: "Demo 2",
-    totalPodcasts: 2,
   },
   {
     id: "3",
     imageUrl: "/images/bg-demo-3.png",
     name: "Demo 3",
-    totalPodcasts: 3,
   },
   {
     id: "4",
     imageUrl: "/images/bg-demo-4.png",
     name: "Demo 4",
-    totalPodcasts: 4,
+  },
+];
+
+export const ICONS: IconType[] = [
+  {
+    href: "https://github.com/ChenBingWei1201/genai-stars",
+    src: "/images/github.png",
+    alt: "github link",
+  },
+  {
+    href: "https://www.facebook.com",
+    src: "/images/facebook.png",
+    alt: "facebook link",
+  },
+  {
+    href: "https://www.linkedin.com",
+    src: "/images/linkedin.png",
+    alt: "linkedin link",
+  },
+  {
+    href: "https://x.com/home",
+    src: "/images/x.png",
+    alt: "x link",
   },
 ];

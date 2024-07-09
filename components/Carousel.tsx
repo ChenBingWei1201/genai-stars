@@ -9,18 +9,9 @@ import type {
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
-import LoaderSpiner from "./LoaderSpinner";
+import LoaderSpinner from "./LoaderSpinner";
+import { CarouselProps } from "@/types";
 
-type TopPodcastersProps = {
-  id: string;
-  imageUrl: any;
-  name: string;
-  totalPodcasts: number;
-};
-
-type CarouselProps = {
-  ads: TopPodcastersProps[];
-};
 const EmblaCarousel = ({ ads }: CarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay() as any,
@@ -44,7 +35,7 @@ const EmblaCarousel = ({ ads }: CarouselProps) => {
   );
 
   const slides = ads;
-  if (!slides) return <LoaderSpiner />;
+  if (!slides) return <LoaderSpinner />;
   return (
     <section
       className="flex w-full flex-col gap-4 overflow-hidden mx-auto"

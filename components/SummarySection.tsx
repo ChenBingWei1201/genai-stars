@@ -1,18 +1,19 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, memo } from "react";
 import { cn } from "@/lib/utils";
 
 function SummarySection({ summary }: { summary: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showReadMoreButton, setShowReadMoreButton] = useState(false);
-  const ref = useRef<any>(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     if (ref.current) {
       // console.log(ref.current.scrollHeight, ref.current.clientHeight);
       setShowReadMoreButton(
-        ref.current.scrollHeight !== ref.current.clientHeight,
+        (ref.current as HTMLElement).scrollHeight !==
+          (ref.current as HTMLElement).clientHeight,
       );
     }
   }, [summary, ref]);
@@ -41,4 +42,4 @@ function SummarySection({ summary }: { summary: string }) {
   );
 }
 
-export default SummarySection;
+export default memo(SummarySection);

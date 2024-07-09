@@ -1,10 +1,5 @@
 import Image from "next/image";
-
-type ProfileCardProps = {
-  imageUrl: string;
-  userFirstName: string;
-};
-
+import { type ProfileCardProps } from "@/types";
 import LoaderSpinner from "./LoaderSpinner";
 
 const ProfileCard = ({ imageUrl, userFirstName }: ProfileCardProps) => {

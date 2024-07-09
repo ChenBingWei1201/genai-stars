@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { memo } from "react";
 
 function Tag({ tag }: { tag: string }) {
   return (
@@ -10,4 +11,4 @@ function Tag({ tag }: { tag: string }) {
   );
 }
 
-export default Tag;
+export default memo(Tag);

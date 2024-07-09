@@ -36,5 +36,8 @@ export default defineSchema({
         highlight_index: v.number(),
       }),
     ),
-  }).searchIndex("search_filename", { searchField: "filename" }),
+  })
+    .searchIndex("search_filename", { searchField: "filename" })
+    .searchIndex("search_title", { searchField: "title" })
+    .searchIndex("search_summary", { searchField: "summary" }),
 });

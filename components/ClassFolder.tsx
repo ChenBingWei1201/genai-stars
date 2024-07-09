@@ -1,20 +1,17 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { ClassFolderProps } from "@/types";
+import { useCallback } from "react";
 
-type ClassFolderProps = {
-  classId: string;
-  title: string;
-  imgUrl: string;
-};
 function ClassFolder({ classId, title, imgUrl }: ClassFolderProps) {
   const router = useRouter();
 
-  const handleView = () => {
+  const handleView = useCallback(() => {
     router.push(`/class/${classId}`, {
       scroll: true,
     });
-  };
+  }, [router, classId]);
 
   return (
     <div
@@ -28,6 +25,7 @@ function ClassFolder({ classId, title, imgUrl }: ClassFolderProps) {
           width={50}
           height={50}
           className="h-fit w-full rounded-t-xl border-b-2"
+          loading="lazy"
         />
         <div>
           <h1 className="text-3xl truncate font-bold text-black mb-10 mx-2">

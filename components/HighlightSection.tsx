@@ -5,22 +5,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import ReactPlayer from "react-player";
-import { formatTime } from "@/lib/formatTime";
-
-type HighlightProp = {
-  start: number;
-  end: number;
-  highlight: string;
-  highlight_summary: string;
-  highlight_index: number;
-};
+import { formatTime } from "@/lib/utils";
+import { type HighlightType } from "@/types";
+import Video from "./Video";
 
 function HighlightSection({
   highlights,
   url,
 }: {
-  highlights?: HighlightProp[];
+  highlights?: HighlightType[];
   url: string;
 }) {
   return (
@@ -34,10 +27,11 @@ function HighlightSection({
         {highlights?.map((highlight, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
             <div className="p-1 w-full">
-              <ReactPlayer
+              <Video
                 key={index}
-                url={url + `?start=${highlight.start}&end=${highlight.end}`}
-                controls
+                url={url}
+                start={highlight.start}
+                end={highlight.end}
                 width="100%"
                 height="100%"
               />

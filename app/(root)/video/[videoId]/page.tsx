@@ -2,16 +2,17 @@
 
 import { useAction, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import ReactPlayer from "react-player";
 import CommentSection from "@/components/CommentSection";
-import LoaderSpiner from "@/components/LoaderSpinner";
+import LoaderSpinner from "@/components/LoaderSpinner";
 import RecommendVideoList from "@/components/RecommendVideoList";
 import SummarySection from "@/components/SummarySection";
 import Tag from "@/components/Tag";
 import HighlightSection from "@/components/HighlightSection";
 import ChapterSection from "@/components/ChapterSection";
+import { SimilarVideoType } from "@/types/index";
 
 function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
   const router = useRouter();
@@ -19,32 +20,41 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
     videoId: videoId,
   });
   const findSimilarVideo = useAction(api.twelve_labs.findSimilarVideo);
-  const [similarVideos, setSimilarVideos] = useState<string[]>([]);
+  const [similarVideos, setSimilarVideos] = useState<SimilarVideoType[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchVideos = async () => {
+      setLoading(true);
       try {
-        const prompt = video?.hashtags[4] || " "; // can be better
+        if (!process.env.NEXT_PUBLIC_INDEX_ID)
+          throw new Error("Index ID not found");
+        const prompt = video?.class ?? " "; // can be better
         const response = await findSimilarVideo({
-          indexId: process.env.NEXT_PUBLIC_INDEX_ID!,
-          prompt: prompt,
+          indexId: process.env.NEXT_PUBLIC_INDEX_ID,
+          prompt: prompt!,
         });
         setSimilarVideos(response!);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchVideos();
-    setLoading(false);
-  }, [videoId, video, findSimilarVideo]);
+  }, [videoId, video]);
+
+  const tags = useMemo(
+    () => video?.hashtags.map((tag: string) => <Tag key={tag} tag={tag} />),
+    [video?.hashtags],
+  );
 
   return (
     <>
       <div className="bg-white">
         {loading ? (
-          <LoaderSpiner />
+          <LoaderSpinner />
         ) : (
           <>
             <div className="w-11/12 mx-auto">
@@ -68,12 +78,8 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
                   />
                 </div>
                 <h1 className="text-24 font-bold ml-1">{`${video?.filename.replace(".mp4", "")}`}</h1>
-                <div className="flex mt-2 gap-2">
-                  {video?.hashtags
-                    .slice(0, 5)
-                    .map((tag: string, index: number) => (
-                      <Tag tag={tag} key={index} />
-                    ))}
+                <div className="flex flex-row flex-wrap mt-2 gap-2 w-11/12">
+                  {tags}
                 </div>
                 <SummarySection summary={video?.summary!} />
                 <div className="w-full bg-gray-100 p-2 rounded-xl">
@@ -97,9 +103,7 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
                   chapters={video?.chapters!}
                   url={video?.videoUrl!}
                 />
-                {similarVideos && (
-                  <RecommendVideoList similarVideos={similarVideos!} />
-                )}
+                <RecommendVideoList similarVideos={similarVideos} />
               </div>
             </div>
           </>

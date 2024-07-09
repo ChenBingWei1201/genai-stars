@@ -1,21 +1,15 @@
 "use client";
-import { useState } from "react";
-import { formatTime } from "@/lib/formatTime";
-import ReactPlayer from "react-player";
 
-type ChapterProp = {
-  chapter_number: number;
-  start: number;
-  end: number;
-  chapter_title: string;
-  chapter_summary: string;
-};
+import { useState } from "react";
+import { formatTime } from "@/lib/utils";
+import { type ChapterType } from "@/types";
+import Video from "./Video";
 
 function ChapterSection({
   chapters,
   url,
 }: {
-  chapters?: ChapterProp[];
+  chapters?: ChapterType[];
   url: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,10 +40,11 @@ function ChapterSection({
               key={index}
               className="flex flex-row items-center mb-2 w-11/12 gap-2 justify-between"
             >
-              <ReactPlayer
+              <Video
                 key={index}
-                url={url + `?start=${chapter.start}&end=${chapter.end}`}
-                controls
+                url={url}
+                start={chapter.start}
+                end={chapter.end}
                 width="100%"
                 height="100%"
               />

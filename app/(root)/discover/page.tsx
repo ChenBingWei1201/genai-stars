@@ -1,12 +1,12 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import EmptyState from "@/components/EmptyState";
-import LoaderSpiner from "@/components/LoaderSpinner";
+import LoaderSpinner from "@/components/LoaderSpinner";
 import Searchbar from "@/components/Searchbar";
 import { Row, Col } from "antd";
-import { useRouter } from "next/navigation";
 
 function Discover({
   searchParams: { search },
@@ -19,7 +19,7 @@ function Discover({
     search: search || "",
   });
 
-  const numVideos: any = videoData?.length;
+  const numVideos: number = videoData?.length!;
   const handleClick = (videoId: string) => {
     router.push(`/video/${videoId}`);
   };
@@ -35,7 +35,7 @@ function Discover({
         <>
           {videoData.length > 0 ? (
             <div className="flex flex-row flex-wrap gap-y-1">
-              {videoData.map((video: any, index) => (
+              {videoData.map((video, index) => (
                 <div
                   className="w-9/12 sm:w-full md:10/12 lg:w-8/12 xl:w-4/12 px-4 py-2 cursor-pointer flex flex-row flex-wrap transition-transform duration-300 ease-in-out transform hover:scale-105"
                   key={index}
@@ -54,6 +54,7 @@ function Discover({
                           src={video.thumbnailUrl}
                           alt={video.filename}
                           className="border-3 rounded-xl border-transparent"
+                          loading="lazy"
                         />
                         <h1 className="text-16 font-bold ml-1 my-1">
                           {video.filename.replace(".mp4", "")}
@@ -69,7 +70,7 @@ function Discover({
           )}
         </>
       ) : (
-        <LoaderSpiner />
+        <LoaderSpinner />
       )}
     </div>
   );
