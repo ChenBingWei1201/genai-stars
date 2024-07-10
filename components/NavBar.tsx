@@ -1,19 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Segmented } from "antd";
 import { useRouter } from "next/navigation";
 import { SECTIONS } from "@/constants/index";
 
 function NavBar() {
   const router = useRouter();
-  const [selectedSection, setSelectedSection] = useState<string>("Home");
+  const [selectedSection, setSelectedSection] = useState<string>(() => {
+    return localStorage.getItem("selectedSection") || "Home";
+  });
 
-  const handleClick = (sectionId: string) => {
-    setSelectedSection(sectionId);
-    if (sectionId === "Home") router.push("/");
-    else router.push(`/section/${sectionId}`);
-  };
+  useEffect(() => {
+    // Persist selectedSection to localStorage whenever it changes
+    localStorage.setItem("selectedSection", selectedSection);
+  }, [selectedSection]);
+
+  const handleClick = useCallback(
+    (sectionId: string) => {
+      setSelectedSection(sectionId);
+      if (sectionId === "Home") router.push("/");
+      else router.push(`/section/${sectionId}`);
+    },
+    [router],
+  );
 
   return (
     <div className="bg-gray-100 w-full">
