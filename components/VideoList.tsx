@@ -23,7 +23,7 @@ function VideoList({ videos }: VideoListProps) {
           const title = video.filename.replace(".mp4", "");
           return (
             <div
-              className="w-9/12 sm:w-full md:10/12 lg:w-8/12 xl:w-4/12 px-4 py-2 cursor-pointer flex flex-row transition-transform duration-300 ease-in-out transform hover:scale-105"
+              className="w-full mx-auto justify-start sm:mx-auto md:mx-auto lg:mx-0 xl:mx-0 sm:w-full md:11/12 lg:w-8/12 xl:w-4/12 px-4 py-2 cursor-pointer flex flex-row transition-transform duration-300 ease-in-out transform hover:scale-105"
               key={index}
             >
               <Row
@@ -35,7 +35,7 @@ function VideoList({ videos }: VideoListProps) {
                 }}
               >
                 <Col className="gutter-row" span={24}>
-                  <div onClick={() => handleClick(`${video.twelvelabsId}`)}>
+                  <div onClick={() => handleClick(`${video.twelvelabsId}`)} className="w-11/12 mx-auto">
                     <img
                       src={video.thumbnailUrl}
                       alt={title}

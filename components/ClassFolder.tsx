@@ -15,15 +15,15 @@ function ClassFolder({ classId, title, imgUrl }: ClassFolderProps) {
 
   return (
     <div
-      className="w-3/12 sm:w-9/12 lg:w-6/12 xl:w-3/12 mx-10 my-5 cursor-pointer border-gray-200 border-1 bg-white rounded-xl shadow flex flex-col transition-transform duration-300 ease-in-out transform hover:scale-105"
+      className="w-full sm:ml-20 md:ml-20 xl:mx-auto sm:w-9/12 md:w-9/12 lg:w-5/12 xl:w-3/12 my-5 cursor-pointer border-gray-200 border-1 bg-white rounded-xl shadow flex flex-col transition-transform duration-300 ease-in-out transform hover:scale-105"
       onClick={handleView}
     >
       <figure className="flex flex-col gap-2">
         <img
           src={imgUrl}
           alt={title}
-          width={50}
-          height={50}
+          width="100%"
+          height="100%"
           className="h-fit w-full rounded-t-xl border-b-2"
           loading="lazy"
         />

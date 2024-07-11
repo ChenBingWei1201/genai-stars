@@ -69,7 +69,7 @@ function SectionPage({
           <EmptyState title="no folder" />
         ) : (
           <div className="w-11/12 mx-auto">
-            <div className="flex flex-row flex-wrap justify-start w-full my-10 sm:justify-center md:justify-start lg:justify-start xl:justify-start">
+            <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap justify-start w-full sm:w-full md:w-full my-10 sm:justify-end md:justify-center lg:justify-between xl:justify-start">
               {iKeyOfSectionClassMap(sectionId) &&
                 SECTION_CLASS_MAP[sectionId].map((classItem: string) => (
                   <>

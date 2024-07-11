@@ -65,7 +65,7 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
                 Discover more videos
               </button>
             </div>
-            <div className="flex flex-row gap-10 justify-between sm:flex-col md:flex-col bg:flex-row xl:flex-row ">
+            <div className="flex flex-col w-full gap-10 justify-between sm:flex-col md:flex-col bg:flex-row xl:flex-row ">
               <div className="flex flex-col w-8/12 ml-10 mt-5 border-transparent ">
                 <div className="video-wrapper">
                   <ReactPlayer
@@ -98,11 +98,13 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
                   title={`${video?.filename.replace(".mp4", "")}`}
                 />
               </div>
-              <div className="w-4/12 flex flex-col">
+              <div className="w-full flex flex-col sm:w-full md:w-full lg:w-6/12 xl:4/12">
+                <div className="mx-auto w-11/12 sm:w-11/12 md:w-11/12 lg:w-auto xl:w-auto">
                 <ChapterSection
                   chapters={video?.chapters!}
                   url={video?.videoUrl!}
                 />
+                </div>
                 <RecommendVideoList similarVideos={similarVideos} />
               </div>
             </div>
