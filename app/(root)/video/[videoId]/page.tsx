@@ -43,7 +43,7 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
     };
 
     fetchVideos();
-  }, [videoId, video]);
+  }, [videoId, video, findSimilarVideo]);
 
   const tags = useMemo(
     () => video?.hashtags.map((tag: string) => <Tag key={tag} tag={tag} />),

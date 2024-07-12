@@ -48,7 +48,7 @@ function SectionPage({
       return allVideos?.filter((video) =>
         SECTION_IDS[sectionId]?.includes(video.class),
       );
-  }, [allVideos, sectionId, validSection]);
+  }, [allVideos, sectionId]);
 
   useEffect(() => {
     setLoading(true);
