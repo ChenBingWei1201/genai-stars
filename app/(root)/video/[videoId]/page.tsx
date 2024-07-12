@@ -100,10 +100,10 @@ function VideoPage({ params: { videoId } }: { params: { videoId: string } }) {
               </div>
               <div className="w-full flex flex-col sm:w-full md:w-full lg:w-6/12 xl:4/12">
                 <div className="mx-auto w-11/12 sm:w-11/12 md:w-11/12 lg:w-auto xl:w-auto">
-                <ChapterSection
-                  chapters={video?.chapters!}
-                  url={video?.videoUrl!}
-                />
+                  <ChapterSection
+                    chapters={video?.chapters!}
+                    url={video?.videoUrl!}
+                  />
                 </div>
                 <RecommendVideoList similarVideos={similarVideos} />
               </div>

@@ -7,8 +7,8 @@ import { VideoListProps } from "@/types";
 
 function VideoList({ videos }: VideoListProps) {
   const router = useRouter();
-
   const numVideos = videos?.length;
+
   const handleClick = useCallback(
     (videoId: string) => {
       router.push(`/video/${videoId}`);
@@ -35,7 +35,10 @@ function VideoList({ videos }: VideoListProps) {
                 }}
               >
                 <Col className="gutter-row" span={24}>
-                  <div onClick={() => handleClick(`${video.twelvelabsId}`)} className="w-11/12 mx-auto">
+                  <div
+                    onClick={() => handleClick(`${video.twelvelabsId}`)}
+                    className="w-11/12 mx-auto"
+                  >
                     <img
                       src={video.thumbnailUrl}
                       alt={title}

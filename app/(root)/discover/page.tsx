@@ -49,7 +49,10 @@ function Discover({
                     }}
                   >
                     <Col className="gutter-row" span={24}>
-                      <div onClick={() => handleClick(`${video.twelvelabsId}`)} className="w-11/12 mx-auto">
+                      <div
+                        onClick={() => handleClick(`${video.twelvelabsId}`)}
+                        className="w-11/12 mx-auto"
+                      >
                         <img
                           src={video.thumbnailUrl}
                           alt={video.filename}
