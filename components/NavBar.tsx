@@ -23,7 +23,7 @@ function NavBar() {
       setSelectedSection(storedSection);
     }
   }, []);
-  
+
   useEffect(() => {
     // Persist selectedSection to localStorage whenever it changes
     localStorage.setItem("selectedSection", selectedSection);

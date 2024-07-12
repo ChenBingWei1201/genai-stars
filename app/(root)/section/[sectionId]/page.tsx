@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, lazy, Suspense } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
-import ClassFolder from "@/components/ClassFolder";
+// import ClassFolder from "@/components/ClassFolder";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import EmptyState from "@/components/EmptyState";
 import {
@@ -15,6 +15,8 @@ import {
 } from "@/constants/index";
 
 import type { ImagesType, SectionClassMapType, SectionIdsType } from "@/types";
+
+const ClassFolder = lazy(() => import("@/components/ClassFolder"));
 
 function SectionPage({
   params: { sectionId },
@@ -49,6 +51,7 @@ function SectionPage({
   }, [allVideos, sectionId, validSection]);
 
   useEffect(() => {
+    setLoading(true);
     if (!validSection) {
       router.push("/not-found");
       return;
@@ -68,23 +71,25 @@ function SectionPage({
         {filteredVideos?.length === 0 ? (
           <EmptyState title="no folder" />
         ) : (
-          <div className="w-11/12 mx-auto">
-            <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap justify-start w-full sm:w-full md:w-full my-10 sm:justify-end md:justify-center lg:justify-between xl:justify-start">
-              {iKeyOfSectionClassMap(sectionId) &&
-                SECTION_CLASS_MAP[sectionId].map((classItem: string) => (
-                  <>
-                    {isKeyOfImages(classItem) && (
-                      <ClassFolder
-                        key={classItem}
-                        classId={classItem}
-                        title={classItem}
-                        imgUrl={`/images/${IMAGES[classItem]}.png`}
-                      />
-                    )}
-                  </>
-                ))}
+          <Suspense fallback={<LoaderSpinner />}>
+            <div className="w-11/12 mx-auto">
+              <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap justify-start w-full sm:w-full md:w-full my-10 sm:justify-end md:justify-center lg:justify-between xl:justify-start">
+                {iKeyOfSectionClassMap(sectionId) &&
+                  SECTION_CLASS_MAP[sectionId].map((classItem: string) => (
+                    <>
+                      {isKeyOfImages(classItem) && (
+                        <ClassFolder
+                          key={classItem}
+                          classId={classItem}
+                          title={classItem}
+                          imgUrl={`/images/${IMAGES[classItem]}.png`}
+                        />
+                      )}
+                    </>
+                  ))}
+              </div>
             </div>
-          </div>
+          </Suspense>
         )}
       </div>
     </>
