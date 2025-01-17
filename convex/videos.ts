@@ -99,7 +99,7 @@ export const getVideoBySearch = query({
     return await ctx.db
       .query("videos")
       .withSearchIndex("search_summary", (q) =>
-        q.search("summary" || "title", args.search),
+        q.search("summary", args.search)
       )
       .take(50);
   },

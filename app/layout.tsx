@@ -4,6 +4,7 @@ import "./globals.css";
 import ConvexClerkProvider from "../providers/ConvexClerkProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           {children}
           <Analytics />
           <SpeedInsights />
+          <GoogleAnalytics gaId="G-NTDSQY4MHQ" />
         </body>
       </html>
     </ConvexClerkProvider>
