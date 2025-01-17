@@ -6,13 +6,7 @@ import LoaderSpinner from "@/components/LoaderSpinner";
 import VideoList from "@/components/VideoList";
 import EmptyState from "@/components/EmptyState";
 
-interface ClassPageProps {
-  params: {
-    classId: string;
-  };
-}
-
-function ClassPage({ params }: ClassPageProps) {
+function ClassPage({ params }: { params: { classId: string } }) {
   const classId = decodeURIComponent(params.classId);
   const videos = useQuery(api.videos.getVideoByClass, {
     class: classId,
